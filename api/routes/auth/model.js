@@ -14,3 +14,9 @@ function getBy(user) {
     .where(user)
     .first();
 }
+
+/* 
+    ~~Todo~~
+    add edit function
+    add delete function
+*/
