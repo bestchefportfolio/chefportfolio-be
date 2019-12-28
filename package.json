@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "nodemon index.js",
+    "start": "node index.js",
+    "test": "cross-env NODE_ENV=testing jest --watch --verbose --runInBand"
   },
   "repository": {
     "type": "git",
@@ -18,13 +20,13 @@
   },
   "homepage": "https://github.com/bestchefportfolio/chefportfolio-be#readme",
   "devDependencies": {
+    "chalk": "^3.0.0",
     "jest": "^24.9.0",
     "nodemon": "^2.0.2",
     "supertest": "^4.0.2"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "chalk": "^3.0.0",
     "cors": "^2.8.5",
     "cross-env": "^6.0.3",
     "express": "^4.17.1",
