@@ -3,7 +3,7 @@ exports.up = function(knex) {
     tbl
       .increments()
       .unsigned()
-      .primary();
+      .primary();   
     tbl
       .string("username", 128)
       .unique()
