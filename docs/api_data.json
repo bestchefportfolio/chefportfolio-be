@@ -189,21 +189,21 @@
             "type": "String",
             "optional": false,
             "field": "location",
-            "description": "<p>Location of Chef</p>"
+            "description": "<p><em>Required</em> Location of Chef</p>"
           },
           {
             "group": "Parameter",
             "type": "Number",
             "optional": false,
             "field": "phone_number",
-            "description": "<p>Phone Number of Chef</p>"
+            "description": "<p><em>Required</em> Phone Number of Chef</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "business_name",
-            "description": "<p>Company Name Chef is employeed at</p>"
+            "description": "<p><em>Required</em> Company Name Chef is employeed at</p>"
           }
         ]
       }
