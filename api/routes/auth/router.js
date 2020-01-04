@@ -6,7 +6,7 @@ const { generateToken } = require("../../helpers/config/generateToken.js");
 
 // todo -- create error messages for register
 /**
- * @api {post} register
+ * @api {post} register Register 
  * @apiName Register
  * @apiGroup Auth
  *
@@ -35,7 +35,7 @@ router.post("/register", (req, res) => {
 });
 
 /**
- * @api {post} register/chef
+ * @api {post} register/chef Register Chef
  * @apiName RegisterChef
  * @apiGroup Auth
  *
