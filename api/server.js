@@ -11,6 +11,7 @@ server.use(cors());
 server.use(express.json());
 
 // routes
+server.use("/docs", express.static('./docs'))
 server.use("/", authRouter);
 
 /**
