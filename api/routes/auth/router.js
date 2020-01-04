@@ -9,13 +9,13 @@ const { generateToken } = require("../../helpers/config/generateToken.js");
  * @api {post} register
  * @apiName Register
  * @apiGroup Auth
- * 
+ *
  * @apiParam {String} username Unique Username for the User.
  * @apiParam {String} password Password of the User.
- * 
+ *
  * @apiSuccess {String} message Thanks for joining the club!
- * 
- * @apiSuccessExample Success-Response: 
+ *
+ * @apiSuccessExample Success-Response:
  *    HTTP/1.1 201 Created
  *    {
  *      "message": "Thanks for joining the club!"
@@ -31,28 +31,57 @@ router.post("/register", (req, res) => {
     .catch(err => res.status(500).json({ error: "Cannot add new user.", err }));
 });
 
-// create chef register post request
-
 /**
- * @api {post} login Login 
- * @apiName Login
+ * @api {post} register/chef
+ * @apiName RegisterChef
  * @apiGroup Auth
- * 
+ *
  * @apiParam {String} username Unique Username for the User.
  * @apiParam {String} password Password of the User.
- * 
+ *
+ * @apiSuccess {String} message Thanks for joining the club!
+ *
+ * @apiSuccessExample Success-Response:
+ *    HTTP/1.1 201 Created
+ *    {
+ *      "message": "Thanks for joining the club!"
+ *    }
+ */
+
+// todo
+// add validate user middleware
+// add error handling
+
+// add a chef
+router.post("/register/chef", (req, res) => {
+  let newChef = req.body;
+  addChef(newChef)
+    .then(() =>
+      res.status(201).json({ message: "What's your favourite dish?" })
+    )
+    .catch(err => res.status(500).json({ error: err.message }));
+});
+
+/**
+ * @api {post} login Login
+ * @apiName Login
+ * @apiGroup Auth
+ *
+ * @apiParam {String} username Unique Username for the User.
+ * @apiParam {String} password Password of the User.
+ *
  * @apiSuccess {String} message Logged in <username>
- * 
- * @apiSuccessExample Success-Response: 
+ *
+ * @apiSuccessExample Success-Response:
  *    HTTP/1.1 200 OK
  *    {
  *      "message": "Logged in bri",
  *      "token": "eyJhbGciOiJIUzI1NiIsInR5cCqwedI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2VbmFtZSI6ImJyaSIsImlhdCI6MTU3ODE3NTM2MfsdfywiZXhwIjoxNTc4MTgyNTYzf.43nHMQb0mGUQg42WyqeFgrEYqweJH2PNu-cYLg1tPN1Gw0"
  *    }
- * 
- * 
+ *
+ *
  * @apiError {String} message invalid
- * 
+ *
  * @apiErrorExample Error-Response:
  *    HTTP/1.1 401 Unauthorized
  *    {
@@ -67,7 +96,9 @@ router.post("/login", (req, res) => {
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user);
-       return res.status(200).json({ message: `Logged in ${user.username}`, token });
+        return res
+          .status(200)
+          .json({ message: `Logged in ${user.username}`, token });
       } else {
         return res.status(401).json({ message: "invalid" });
       }
