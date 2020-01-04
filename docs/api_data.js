@@ -1,7 +1,7 @@
 define({ "api": [
   {
     "type": "post",
-    "url": "/login",
+    "url": "login",
     "title": "Login",
     "name": "Login",
     "group": "Auth",
@@ -32,15 +32,15 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "Logged",
-            "description": "<p>in bri</p>"
+            "field": "message",
+            "description": "<p>Logged in bri</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Success-Response: ",
-          "content": "HTTP/1.1 200 OK\n{\n  \"message\": \"Logged in bri\",\n  \"token\":\n  \"eyJhbGciOiJIUzI1NiIsInR5cCqwedI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2V\n  bmFtZSI6ImJyaSIsImlhdCI6MTU3ODE3NTM2MfsdfywiZXhwIjoxNTc4MTgyNTYzf\n  .43nHMQb0mGUQg42WyqeFgrEYqweJH2PNu-cYLg1tPN1Gw0\"\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"message\": \"Logged in bri\",\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCqwedI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2VbmFtZSI6ImJyaSIsImlhdCI6MTU3ODE3NTM2MfsdfywiZXhwIjoxNTc4MTgyNTYzf.43nHMQb0mGUQg42WyqeFgrEYqweJH2PNu-cYLg1tPN1Gw0\"\n}",
           "type": "json"
         }
       ]
@@ -50,9 +50,10 @@ define({ "api": [
         "Error 4xx": [
           {
             "group": "Error 4xx",
+            "type": "String",
             "optional": false,
-            "field": "Invalid",
-            "description": "<p>Credentials invalid</p>"
+            "field": "message",
+            "description": "<p>invalid</p>"
           }
         ]
       },
@@ -70,7 +71,7 @@ define({ "api": [
   },
   {
     "type": "post",
-    "url": "/register",
+    "url": "register",
     "title": "",
     "name": "Register",
     "group": "Auth",
@@ -101,8 +102,8 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "Thanks",
-            "description": "<p>for joining the club!</p>"
+            "field": "message",
+            "description": "<p>Thanks for joining the club!</p>"
           }
         ]
       },
