@@ -33,13 +33,13 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "message",
-            "description": "<p>Logged in bri</p>"
+            "description": "<p>Logged in <username></p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Success-Response: ",
+          "title": "Success-Response:",
           "content": "HTTP/1.1 200 OK\n{\n  \"message\": \"Logged in bri\",\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCqwedI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2VbmFtZSI6ImJyaSIsImlhdCI6MTU3ODE3NTM2MfsdfywiZXhwIjoxNTc4MTgyNTYzf.43nHMQb0mGUQg42WyqeFgrEYqweJH2PNu-cYLg1tPN1Gw0\"\n}",
           "type": "json"
         }
@@ -83,14 +83,35 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "username",
-            "description": "<p>Unique Username for the User.</p>"
+            "description": "<p><em>Required</em> Unique Username for the User.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "password",
-            "description": "<p>Password of the User.</p>"
+            "description": "<p><em>Required</em> Password of the User.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>Unique Email of the User.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name of User.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "boolean",
+            "optional": false,
+            "field": "is_chef",
+            "description": "<p>Do not add, defaults to false</p>"
           }
         ]
       }
@@ -109,8 +130,100 @@ define({ "api": [
       },
       "examples": [
         {
-          "title": "Success-Response: ",
+          "title": "Success-Response:",
           "content": "HTTP/1.1 201 Created\n{\n  \"message\": \"Thanks for joining the club!\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "api/routes/auth/router.js",
+    "groupTitle": "Auth"
+  },
+  {
+    "type": "post",
+    "url": "register/chef",
+    "title": "",
+    "name": "RegisterChef",
+    "group": "Auth",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "username",
+            "description": "<p><em>Required</em> Unique Username for the User.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": "<p><em>Required</em> Password of the User.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>Unique Email of the User.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name of User.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "boolean",
+            "optional": false,
+            "field": "is_chef",
+            "description": "<p>Do not add, defaults to false</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "location",
+            "description": "<p>Location of Chef</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "phone_number",
+            "description": "<p>Phone Number of Chef</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "business_name",
+            "description": "<p>Company Name Chef is employeed at</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>What's your favourite dish?</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 201 Created\n{\n  \"message\": \"What's your favourite dish?\"\n}",
           "type": "json"
         }
       ]
