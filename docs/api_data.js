@@ -72,7 +72,7 @@ define({ "api": [
   {
     "type": "post",
     "url": "register",
-    "title": "",
+    "title": "Register",
     "name": "Register",
     "group": "Auth",
     "parameter": {
@@ -143,7 +143,7 @@ define({ "api": [
   {
     "type": "post",
     "url": "register/chef",
-    "title": "",
+    "title": "Register Chef",
     "name": "RegisterChef",
     "group": "Auth",
     "parameter": {
