@@ -41,7 +41,7 @@ router.post("/register", (req, res) => {
  * @apiParam {String} username Unique Username for the User.
  * @apiParam {String} password Password of the User.
  * 
- * @apiSuccess {String} message Logged in bri
+ * @apiSuccess {String} message Logged in <username>
  * 
  * @apiSuccessExample Success-Response: 
  *    HTTP/1.1 200 OK
