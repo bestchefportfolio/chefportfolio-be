@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 
-const { add, getBy } = require("./model.js");
+const { add, getBy, addChef } = require("./model.js");
 const { generateToken } = require("../../helpers/config/generateToken.js");
 
 // todo -- create error messages for register
@@ -76,7 +76,7 @@ router.post("/register/chef", (req, res) => {
     phone_number: req.body.phone_number,
     business_name: req.body.business_name
   };
-  addChef(newChef)
+  addChef(newUser, newChef)
     .then(() =>
       res.status(201).json({ message: "What's your favourite dish?" })
     )

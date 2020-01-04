@@ -28,7 +28,7 @@ async function addChef(user, chef) {
   const id = await db("users").insert(user);
   console.log("id: ", id);
   const newChef = {
-    chef_id: id[0],
+    user_id: id[0],
     ...chef
   };
   console.log("newChef: ", newChef);
