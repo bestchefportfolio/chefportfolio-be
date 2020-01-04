@@ -2,7 +2,7 @@
   {
     "type": "post",
     "url": "/login",
-    "title": "Login in with user credentials to recieve a token to access other routes",
+    "title": "Login",
     "name": "Login",
     "group": "Auth",
     "parameter": {
@@ -71,7 +71,7 @@
   {
     "type": "post",
     "url": "/register",
-    "title": "Register User information",
+    "title": "",
     "name": "Register",
     "group": "Auth",
     "parameter": {
