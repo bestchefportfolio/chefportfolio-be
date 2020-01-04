@@ -2,8 +2,13 @@
   "name": "chefportfolio-be",
   "version": "1.0.0",
   "description": "",
+  "apidoc": {
+    "title": "Chef Portfolio API Documentation",
+    "url": "https://chef-portfolio-be.herokuapp.com/"
+  },
   "main": "index.js",
   "scripts": {
+    "docs": "apidoc -i ./api/routes -e node_modules -o ./docs",
     "server": "nodemon index.js",
     "start": "node index.js",
     "test": "cross-env NODE_ENV=testing jest --watch --verbose --runInBand"
@@ -26,6 +31,7 @@
     "supertest": "^4.0.2"
   },
   "dependencies": {
+    "apidoc": "^0.19.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "cross-env": "^6.0.3",
