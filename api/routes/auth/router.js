@@ -44,9 +44,9 @@ router.post("/register", (req, res) => {
  * @apiParam {String} email Unique Email of the User.
  * @apiParam {String} name Name of User.
  * @apiParam {boolean} is_chef Do not add, defaults to false
- * @apiParam {String} location Location of Chef
- * @apiParam {Number} phone_number Phone Number of Chef
- * @apiParam {String} business_name Company Name Chef is employeed at
+ * @apiParam {String} location *Required* Location of Chef
+ * @apiParam {Number} phone_number *Required* Phone Number of Chef
+ * @apiParam {String} business_name *Required* Company Name Chef is employeed at
  *
  * @apiSuccess {String} message What's your favourite dish?
  *

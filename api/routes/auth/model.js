@@ -44,4 +44,6 @@ async function addChef(user, chef) {
     ~~Todo~~
     add edit function
     add delete function
+
+    different folder also add a way to update a user into a chef
 */
