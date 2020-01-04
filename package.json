@@ -2,6 +2,10 @@
   "name": "chefportfolio-be",
   "version": "1.0.0",
   "description": "",
+  "apidoc": {
+    "title": "Chef Portfolio API Documentation",
+    "url": "https://chef-portfolio-be.herokuapp.com/"
+  },
   "main": "index.js",
   "scripts": {
     "server": "nodemon index.js",
