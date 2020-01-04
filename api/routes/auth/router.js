@@ -13,7 +13,7 @@ const { generateToken } = require("../../helpers/config/generateToken.js");
  * @apiParam {String} username Unique Username for the User.
  * @apiParam {String} password Password of the User.
  * 
- * @apiSuccess {String} Thanks for joining the club!
+ * @apiSuccess {String} message Thanks for joining the club!
  * 
  * @apiSuccessExample Success-Response: 
  *    HTTP/1.1 201 Created
@@ -47,14 +47,11 @@ router.post("/register", (req, res) => {
  *    HTTP/1.1 200 OK
  *    {
  *      "message": "Logged in bri",
- *      "token":
- *      "eyJhbGciOiJIUzI1NiIsInR5cCqwedI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2V
- *      bmFtZSI6ImJyaSIsImlhdCI6MTU3ODE3NTM2MfsdfywiZXhwIjoxNTc4MTgyNTYzf
- *      .43nHMQb0mGUQg42WyqeFgrEYqweJH2PNu-cYLg1tPN1Gw0"
+ *      "token": "eyJhbGciOiJIUzI1NiIsInR5cCqwedI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2VbmFtZSI6ImJyaSIsImlhdCI6MTU3ODE3NTM2MfsdfywiZXhwIjoxNTc4MTgyNTYzf.43nHMQb0mGUQg42WyqeFgrEYqweJH2PNu-cYLg1tPN1Gw0"
  *    }
  * 
  * 
- * @apiError Invalid Credentials invalid
+ * @apiError {String} message invalid
  * 
  * @apiErrorExample Error-Response:
  *    HTTP/1.1 401 Unauthorized
