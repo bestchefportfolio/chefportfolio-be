@@ -10,8 +10,11 @@ const { generateToken } = require("../../helpers/config/generateToken.js");
  * @apiName Register
  * @apiGroup Auth
  *
- * @apiParam {String} username Unique Username for the User.
- * @apiParam {String} password Password of the User.
+ * @apiParam {String} username *Required* Unique Username for the User.
+ * @apiParam {String} password *Required* Password of the User.
+ * @apiParam {String} email Unique Email of the User.
+ * @apiParam {String} name Name of User.
+ * @apiParam {boolean} is_chef Do not add, defaults to false
  *
  * @apiSuccess {String} message Thanks for joining the club!
  *
@@ -36,15 +39,21 @@ router.post("/register", (req, res) => {
  * @apiName RegisterChef
  * @apiGroup Auth
  *
- * @apiParam {String} username Unique Username for the User.
- * @apiParam {String} password Password of the User.
+ * @apiParam {String} username *Required* Unique Username for the User.
+ * @apiParam {String} password *Required* Password of the User.
+ * @apiParam {String} email Unique Email of the User.
+ * @apiParam {String} name Name of User.
+ * @apiParam {boolean} is_chef Do not add, defaults to false
+ * @apiParam {String} location Location of Chef
+ * @apiParam {Number} phone_number Phone Number of Chef
+ * @apiParam {String} business_name Company Name Chef is employeed at
  *
- * @apiSuccess {String} message Thanks for joining the club!
+ * @apiSuccess {String} message What's your favourite dish?
  *
  * @apiSuccessExample Success-Response:
  *    HTTP/1.1 201 Created
  *    {
- *      "message": "Thanks for joining the club!"
+ *      "message": "What's your favourite dish?"
  *    }
  */
 
@@ -54,7 +63,19 @@ router.post("/register", (req, res) => {
 
 // add a chef
 router.post("/register/chef", (req, res) => {
-  let newChef = req.body;
+  let newUser = {
+    username: req.body.username,
+    password: req.body.password,
+    email: req.body.email,
+    name: req.body.name,
+    is_chef: 1
+  };
+
+  let newChef = {
+    location: req.body.location,
+    phone_number: req.body.phone_number,
+    business_name: req.body.business_name
+  };
   addChef(newChef)
     .then(() =>
       res.status(201).json({ message: "What's your favourite dish?" })

@@ -11,7 +11,7 @@ exports.up = function(knex) {
     tbl.string("password", 128).notNullable();
     tbl.string("email", 128).unique();
     tbl.string("name", 128);
-    tbl.bool("is_chef").defaultTo(false);
+    tbl.integer("is_chef").defaultTo(0);
   });
 };
 
