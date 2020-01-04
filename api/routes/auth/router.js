@@ -6,7 +6,7 @@ const { generateToken } = require("../../helpers/config/generateToken.js");
 
 // todo -- create error messages for register
 /**
- * @api {post} /register Register User information
+ * @api {post} /register
  * @apiName Register
  * @apiGroup Auth
  * 
@@ -34,7 +34,7 @@ router.post("/register", (req, res) => {
 // create chef register post request
 
 /**
- * @api {post} /login Login in with user credentials to recieve a token to access other routes
+ * @api {post} /login Login 
  * @apiName Login
  * @apiGroup Auth
  * 
