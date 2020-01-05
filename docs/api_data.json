@@ -261,6 +261,13 @@
             "optional": false,
             "field": "instructions",
             "description": "<p><em>Required</em> How to make the recipe.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "images",
+            "description": "<p>An image to attach to recipe.</p>"
           }
         ]
       }
@@ -269,7 +276,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "   HTTP/1.1 201 Created\n   {\n     \"chef\": {\n       \"chef_name\": \"Gordan Ramsy\",\n       \"business_name\": \"Lucky Cat\"\n     },\n     \"recipes\": [\n       {\n         \"chef_id\": 2,\n         \"recipe_id\": 4,\n         \"title\": \"Stuffed Pork Tenderloin Recipe\",\n         \"servings\": 4,\n         \"instructions\": \"Preheat the oven to 220°C/Gas 7...\"\n       }\n   ]\n}",
+          "content": "   HTTP/1.1 201 Created\n   {\n     \"chef\": {\n       \"chef_name\": \"Gordan Ramsy\",\n       \"business_name\": \"Lucky Cat\"\n     },\n     \"recipes\": [\n       {\n         \"recipe_id\": 4,\n         \"title\": \"Stuffed Pork Tenderloin Recipe\",\n         \"servings\": 4,\n         \"instructions\": \"Preheat the oven to 220°C/Gas 7...\"\n         \"images\": null\n       }\n   ]\n}",
           "type": "json"
         }
       ]
@@ -318,7 +325,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "   HTTP/1.1 200 Created\n   {\n     \"chef\": {\n       \"chef_name\": \"Gordan Ramsy\",\n       \"business_name\": \"Lucky Cat\"\n     },\n     \"recipes\": [\n       {\n         \"chef_id\": 2,\n         \"recipe_id\": 4,\n         \"title\": \"Stuffed Pork Tenderloin Recipe\",\n         \"servings\": 4,\n         \"instructions\": \"Preheat the oven to 220°C/Gas 7...\"\n       },\n       {\n         \"chef_id\": 2,\n         \"recipe_id\": 5,\n         \"title\": \"Gordon's Breakfast Pizza from Scrambled\",\n         \"servings\": 2,\n         \"instructions\": \"Remove the pizza dough ball from the fridge and let it warm to room temperature...\"\n       }     \n]\n}",
+          "content": "   HTTP/1.1 200 Created\n   {\n     \"chef\": {\n       \"chef_name\": \"Gordan Ramsy\",\n       \"business_name\": \"Lucky Cat\"\n     },\n     \"recipes\": [\n       {\n         \"chef_id\": 2,\n         \"recipe_id\": 4,\n         \"title\": \"Stuffed Pork Tenderloin Recipe\",\n         \"servings\": 4,\n         \"instructions\": \"Preheat the oven to 220°C/Gas 7...\"\n         \"images\": null\n       },\n       {\n         \"chef_id\": 2,\n         \"recipe_id\": 5,\n         \"title\": \"Gordon's Breakfast Pizza from Scrambled\",\n         \"servings\": 2,\n         \"instructions\": \"Remove the pizza dough ball from the fridge and let it warm to room temperature...\"\n         \"images\": null\n        }     \n]\n}",
           "type": "json"
         }
       ]
@@ -364,7 +371,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 6,\n  \"title\": \"This was a tasty recipe!\",\n  \"servings\": 1,\n  \"instructions\": \"Nom nom nom\"\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 6,\n  \"title\": \"This was a tasty recipe!\",\n  \"servings\": 1,\n  \"instructions\": \"Nom nom nom\",\n  \"images\": null\n}",
           "type": "json"
         }
       ]
@@ -372,5 +379,43 @@
     "version": "0.0.0",
     "filename": "api/routes/chef_recipes/router.js",
     "groupTitle": "Chef_Recipes"
+  },
+  {
+    "type": "get",
+    "url": "ingredients/quantities",
+    "title": "Get All Avaliable Ingredients",
+    "name": "Get_ingredients",
+    "group": "Ingredients",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n  {\n      \"ingredients\": [\n          {\n              \"name\": \"almond milk\"\n          }\n      ]\n  }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "api/routes/ingredients/router.js",
+    "groupTitle": "Ingredients"
+  },
+  {
+    "type": "get",
+    "url": "ingredients/quantities",
+    "title": "Get All Avaliable Quantites",
+    "name": "Get_quantites",
+    "group": "Ingredients",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n  {\n   \"types\": [\n     {\n       \"id\": 1,\n       \"type_of_measurement\": \"weight\",\n       \"unit\": \"pound\",\n       \"abbreviation\": \"lb.\"\n     },\n     {\n       \"id\": 2,\n       \"type_of_measurement\": \"weight\",\n       \"unit\": \"ounce\",\n       \"abbreviation\": \"oz.\"\n     },\n     {\n       \"id\": 3,\n       \"type_of_measurement\": \"volume\",\n       \"unit\": \"gallon\",\n       \"abbreviation\": \"gal.\"\n     },\n     {\n       \"id\": 4,\n       \"type_of_measurement\": \"volume\",\n       \"unit\": \"quart\",\n       \"abbreviation\": \"qt.\"\n     },\n     {\n       \"id\": 5,\n       \"type_of_measurement\": \"volume\",\n       \"unit\": \"pint\",\n       \"abbreviation\": \"pt.\"\n     },\n     {\n       \"id\": 6,\n       \"type_of_measurement\": \"volume\",\n       \"unit\": \"cup\",\n       \"abbreviation\": \"c.\"\n     },\n     {\n       \"id\": 7,\n       \"type_of_measurement\": \"volume\",\n       \"unit\": \"fluid ounce\",\n       \"abbreviation\": \"fl. oz.\"\n     },\n     {\n       \"id\": 8,\n       \"type_of_measurement\": \"volume\",\n       \"unit\": \"tablespoon\",\n       \"abbreviation\": \"tbsp.\"\n     },\n     {\n       \"id\": 9,\n       \"type_of_measurement\": \"volume\",\n       \"unit\": \"teaspoon\",\n       \"abbreviation\": \"tsp\"\n     }\n   ]\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "api/routes/ingredients/router.js",
+    "groupTitle": "Ingredients"
   }
 ]
