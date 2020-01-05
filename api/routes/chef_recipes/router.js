@@ -26,7 +26,6 @@ const {
  *      },
  *      "recipes": [
  *        {
- *          "chef_id": 2,
  *          "recipe_id": 4,
  *          "title": "Stuffed Pork Tenderloin Recipe",
  *          "servings": 4,
@@ -35,7 +34,7 @@ const {
  *    ]
 }
  */
-router.post("/:chef_id/recipes/", (req, res) => {
+router.post("/:chef_id/recipes", (req, res) => {
   const chefID = req.params.chef_id;
   getChefById(chefID).then(chef => {
     addRecipe(chefID, req.body)
@@ -82,8 +81,9 @@ router.post("/:chef_id/recipes/", (req, res) => {
  */
 
 router.get("/:chef_id/recipes", (req, res) => {
+  console.log(req.params.chef_id)
   getChefsRecipes(req.params.chef_id)
-    .then(recipes => res.status(200).json({ recipes }))
+    .then((chefRecipes) => res.status(200).json({ chefRecipes }))
     .catch(err => res.status(500).json({ error: err.message }));
 });
 
