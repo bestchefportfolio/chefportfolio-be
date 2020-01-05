@@ -1,11 +1,20 @@
 const router = require("express").Router();
 
-const { addRecipe, getChefsRecipes } = require("./model.js");
+const { addRecipe, getChefById, getChefsRecipes } = require("./model.js");
 
-router.post("/:id/recipes/", (req, res) => {
-  addRecipe(req.body)
-    .then(() => res.status(201))
-    .catch(err => res.status(500).json({ error: err.message }));
+router.post("/:chef_id/recipes/", (req, res) => {
+  const chefID = req.params.chef_id;
+  getChefById(chefID).then(chef => {
+    addRecipe(chefID, req.body)
+      .then(recipes => {
+        const response = {
+          chef: chef,
+          recipes: recipes
+        };
+        res.status(201).json(response);
+      })
+      .catch(err => res.status(500).json({ error: err.message }));
+  });
 });
 
 module.exports = router;
