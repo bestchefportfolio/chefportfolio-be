@@ -246,7 +246,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "title",
-            "description": "<p><em>Required</em> <em>Unique</em> title of recipe.</p>"
+            "description": "<p><em>Required</em> <strong>Unique</strong> title of recipe.</p>"
           },
           {
             "group": "Parameter",
@@ -269,7 +269,53 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 201 Created\n{\n  chef\": {\n      \"chef_name\": \"New Chef\",\n      \"business_name\": \"Resturant Passport!\"\n   }\n  \"recipes\": [\n    {\n      \"chef_id\": 2,\n      \"recipe_id\": 9,\n      \"title\": \"Best Recipe\",\n      \"servings\": 100,\n      \"instructions\": \"As many instructions as you want.\"\n    }\n  }\n}",
+          "content": "   HTTP/1.1 201 Created\n   {\n     \"chef\": {\n       \"chef_name\": \"Gordan Ramsy\",\n       \"business_name\": \"Lucky Cat\"\n     },\n     \"recipes\": [\n       {\n         \"chef_id\": 2,\n         \"recipe_id\": 4,\n         \"title\": \"Stuffed Pork Tenderloin Recipe\",\n         \"servings\": 4,\n         \"instructions\": \"Preheat the oven to 220°C/Gas 7...\"\n       }\n   ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "api/routes/chef_recipes/router.js",
+    "groupTitle": "Chef_Recipes"
+  },
+  {
+    "type": "post",
+    "url": "chef/:chef_id/recipes",
+    "title": "Add a Recipe",
+    "name": "Add_a_Recipe",
+    "group": "Chef_Recipes",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p><em>Required</em> <strong>Unique</strong> title of recipe.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "servings",
+            "description": "<p><em>Required</em> Number of people recipe serves.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "instructions",
+            "description": "<p><em>Required</em> How to make the recipe.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "   HTTP/1.1 201 Created\n   {\n     \"chef\": {\n       \"chef_name\": \"Gordan Ramsy\",\n       \"business_name\": \"Lucky Cat\"\n     },\n     \"recipes\": [\n       {\n         \"chef_id\": 2,\n         \"recipe_id\": 4,\n         \"title\": \"Stuffed Pork Tenderloin Recipe\",\n         \"servings\": 4,\n         \"instructions\": \"Preheat the oven to 220°C/Gas 7...\"\n       },\n       {\n         \"chef_id\": 2,\n         \"recipe_id\": 5,\n         \"title\": \"Gordon's Breakfast Pizza from Scrambled\",\n         \"servings\": 2,\n         \"instructions\": \"Remove the pizza dough ball from the fridge and let it warm to room temperature...\"\n       }     \n]\n}",
           "type": "json"
         }
       ]
