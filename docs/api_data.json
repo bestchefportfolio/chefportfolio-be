@@ -279,6 +279,36 @@
     "groupTitle": "Chef_Recipes"
   },
   {
+    "type": "delete",
+    "url": "chef/:chef_id/recipes/:recipe_id",
+    "title": "Delete a Recipe",
+    "name": "Delete",
+    "group": "Chef_Recipes",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "success",
+            "description": "<p>recipe was deleted</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  success: \"recipe was deleted\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "api/routes/chef_recipes/router.js",
+    "groupTitle": "Chef_Recipes"
+  },
+  {
     "type": "get",
     "url": "chef/:chef_id/recipes",
     "title": "Get Chef's Recipe",
@@ -298,8 +328,8 @@
     "groupTitle": "Chef_Recipes"
   },
   {
-    "type": "post",
-    "url": "chef/:chef_id/recipes",
+    "type": "put",
+    "url": "chef/:chef_id/recipes/:recipe_id",
     "title": "Update a Recipe",
     "name": "Update",
     "group": "Chef_Recipes",

@@ -55,6 +55,12 @@ function editRecipe(id, changes) {
     .then(() => getRecipeByID(id));
 }
 
-function deleteRecipe() {
-  return null;
+function deleteRecipe(id) {
+  return getRecipeByID(id).then(res => {
+    return db("recipes")
+      .where({ id })
+      .del()
+      .then(() => res)
+      .catch(err => console.log(err));
+  });
 }

@@ -1,6 +1,12 @@
 const router = require("express").Router();
 
-const { addRecipe, getChefById, getChefsRecipes, editRecipe } = require("./model.js");
+const {
+  addRecipe,
+  getChefById,
+  getChefsRecipes,
+  editRecipe,
+  deleteRecipe
+} = require("./model.js");
 
 /**
  * @api {post} chef/:chef_id/recipes Add a Recipe
@@ -81,9 +87,8 @@ router.get("/:chef_id/recipes", (req, res) => {
     .catch(err => res.status(500).json({ error: err.message }));
 });
 
-
 /**
- * @api {post} chef/:chef_id/recipes Update a Recipe
+ * @api {put} chef/:chef_id/recipes/:recipe_id Update a Recipe
  * @apiName Update
  * @apiGroup Chef Recipes
  *
@@ -106,6 +111,26 @@ router.put("/:chef_id/recipes/:recipe_id", (req, res) => {
   editRecipe(recipe_id, updates)
     .then(changes => res.status(200).json(changes))
     .catch(err => res.status(500).json({ error: err.message }));
+});
+
+/**
+ * @api {delete} chef/:chef_id/recipes/:recipe_id Delete a Recipe
+ * @apiName Delete
+ * @apiGroup Chef Recipes
+ *
+ * @apiSuccess {String} success recipe was deleted
+ *
+ * @apiSuccessExample Success-Response:
+ *    HTTP/1.1 200 OK
+ *    {
+ *      success: "recipe was deleted"
+ *    }
+ */
+router.delete("/:chef_id/recipes/:recipe_id", (req, res) => {
+  const { recipe_id } = req.params;
+  deleteRecipe(recipe_id)
+    .then(() => res.status(200).json({ success: "recipe was deleted" }))
+    .catch(err => res.status(500).json(err));
 });
 
 module.exports = router;
