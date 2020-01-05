@@ -9,6 +9,7 @@ const {
 
 // add ingredient to recipe
 router.post("/:recipe_id/ingredients/:ingredient_id", (req, res) => {
+  // add a middleware where if ingredient does not exist yet add to database
   const ingredient = {
     recipe_id: Number(req.params.recipe_id),
     ingredient_id: Number(req.params.ingredient_id),
@@ -22,6 +23,21 @@ router.post("/:recipe_id/ingredients/:ingredient_id", (req, res) => {
 });
 
 // update recipe ingredients
+router.put("/:recipe_id/ingredients/:ingredient_id", (req, res) => {
+  const { recipe_id, ingredient_id } = req.params;
+  const updates = req.body;
+
+  getRecipeIngredients(recipe_id)
+    .then(list => {
+      const ingredient = list.ingredients.filter(
+        ing => ing.ingredient_id == ingredient_id
+      );
+      editRecipeIngredients(recipe_id, ingredient_id, updates).then(updated =>
+        res.status(200).json({ updated })
+      );
+    })
+    .catch(err => res.status(500).json({ error: err.message }));
+});
 
 // delete recipe ingredient
 
