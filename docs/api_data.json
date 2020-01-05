@@ -325,7 +325,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "   HTTP/1.1 200 Created\n   {\n     \"chef\": {\n       \"chef_name\": \"Gordan Ramsy\",\n       \"business_name\": \"Lucky Cat\"\n     },\n     \"recipes\": [\n       {\n         \"chef_id\": 2,\n         \"recipe_id\": 4,\n         \"title\": \"Stuffed Pork Tenderloin Recipe\",\n         \"servings\": 4,\n         \"instructions\": \"Preheat the oven to 220°C/Gas 7...\"\n         \"images\": null\n       },\n       {\n         \"chef_id\": 2,\n         \"recipe_id\": 5,\n         \"title\": \"Gordon's Breakfast Pizza from Scrambled\",\n         \"servings\": 2,\n         \"instructions\": \"Remove the pizza dough ball from the fridge and let it warm to room temperature...\"\n         \"images\": null\n        }     \n]\n}",
+          "content": "   HTTP/1.1 200 OK\n   {\n     \"chef\": {\n       \"chef_name\": \"Gordan Ramsy\",\n       \"business_name\": \"Lucky Cat\"\n     },\n     \"recipes\": [\n       {\n         \"chef_id\": 2,\n         \"recipe_id\": 4,\n         \"title\": \"Stuffed Pork Tenderloin Recipe\",\n         \"servings\": 4,\n         \"instructions\": \"Preheat the oven to 220°C/Gas 7...\"\n         \"images\": null\n       },\n       {\n         \"chef_id\": 2,\n         \"recipe_id\": 5,\n         \"title\": \"Gordon's Breakfast Pizza from Scrambled\",\n         \"servings\": 2,\n         \"instructions\": \"Remove the pizza dough ball from the fridge and let it warm to room temperature...\"\n         \"images\": null\n        }     \n]\n}",
           "type": "json"
         }
       ]
