@@ -1,4 +1,5 @@
-const { db } = require("../../../database/dbconfig.js");
+const db = require("../../../database/dbconfig.js");
+const { getRecipeById } = require("../chef_recipes/model.js");
 
 module.exports = {
   addRecipeIngredient,
@@ -16,25 +17,30 @@ async function addRecipeIngredient(ingredient) {
             quantity_value
         }
     */
-  const id = await db("recipe_ingredients").insert(ingredient);
-
-  return getRecipeIngredients(id);
+  const newIngredient = await db("recipe_ingredients").insert(ingredient);
+  console.log("newIngredient: ", newIngredient);
+  return getRecipeIngredients(newIngredient.recipe_id);
 }
 
-function getRecipeIngredients(id) {
-  return db("recipe_ingredients as ri")
+async function getRecipeIngredients(id) {
+  const recipe = await getRecipeById(id)
+  const ingredients = await db("recipe_ingredients as ri")
     .join("recipes as r", "r.id", "ri.recipe_id")
-    .join("ingredients as i", "i.id", "ri.ingredients_id")
-    .join("quantities as q", "q.id", "ri.quantity_id")
+    .join("ingredients as i", "i.id", "ri.ingredient_id")
+    .join("quantites as q", "q.id", "ri.quantity_id")
     .select(
       "ri.id",
-      "r.title as recipe_title",
       "i.name as ingredient",
       "quantity_value",
-      "q.abbervation as unit_abbrevation"
+      "q.abbreviation as unit_abbreviation"
     )
-    .where("ri.recipe_id", { id })
-    .first();
+    .where("ri.recipe_id", id);
+    const recipeIngredients = {
+      recipe: recipe,
+      ingredients: ingredients
+    }
+
+    return recipeIngredients
 }
 
 async function editRecipeIngredients(recipe_id, changes) {

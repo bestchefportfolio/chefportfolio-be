@@ -105,8 +105,10 @@ router.get("/quantities", (req, res) => {
   );
 });
 
-router.post("/:ingredient_id/", (req, res) => {
-  return null;
+router.post("/", (req, res) => {
+  addIngredient(req.body)
+    .then(newIngredient => res.status(200).json({ newIngredient }))
+    .catch(err => res.status(500).json({ error: err }));
 });
 
 module.exports = router;
