@@ -3,6 +3,14 @@ exports.up = function(knex) {
     tbl.increments();
     tbl.string("location").notNullable();
     tbl
+    .integer("user_id")
+    .unsigned()
+    .notNullable()
+    .references("id")
+    .inTable("users")
+    .onDelete("CASCADE")
+    .onUpdate("CASCADE");
+    tbl
       .string("phone_number")
       .unique()
       .notNullable();
