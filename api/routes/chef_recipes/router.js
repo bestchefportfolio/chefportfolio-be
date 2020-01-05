@@ -45,16 +45,12 @@ router.post("/:chef_id/recipes/", (req, res) => {
 });
 
 /**
- * @api {post} chef/:chef_id/recipes Add a Recipe
- * @apiName Add a Recipe
+ * @api {get} chef/:chef_id/recipes Get Chef's Recipe
+ * @apiName Get Recipes
  * @apiGroup Chef Recipes
  *
- * @apiParam {String} title *Required* **Unique** title of recipe.
- * @apiParam {number} servings *Required* Number of people recipe serves.
- * @apiParam {String} instructions *Required* How to make the recipe.
- *
  * @apiSuccessExample Success-Response:
- *    HTTP/1.1 201 Created
+ *    HTTP/1.1 200 Created
  *    {
  *      "chef": {
  *        "chef_name": "Gordan Ramsy",
@@ -87,8 +83,8 @@ router.get("/:chef_id/recipes", (req, res) => {
 
 
 /**
- * @api {post} chef/:chef_id/recipes Add a Recipe
- * @apiName Add a Recipe
+ * @api {post} chef/:chef_id/recipes Update a Recipe
+ * @apiName Update
  * @apiGroup Chef Recipes
  *
  * @apiParam {String} title *Required* **Unique** title of recipe.
