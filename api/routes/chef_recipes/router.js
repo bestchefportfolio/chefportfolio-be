@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const { addRecipe, getChefById, getChefsRecipes } = require("./model.js");
+const { addRecipe, getChefById, getChefsRecipes, editRecipe } = require("./model.js");
 
 /**
  * @api {post} chef/:chef_id/recipes Add a Recipe
@@ -82,6 +82,33 @@ router.post("/:chef_id/recipes/", (req, res) => {
 router.get("/:chef_id/recipes", (req, res) => {
   getChefsRecipes(req.params.chef_id)
     .then(recipes => res.status(200).json({ recipes }))
+    .catch(err => res.status(500).json({ error: err.message }));
+});
+
+
+/**
+ * @api {post} chef/:chef_id/recipes Add a Recipe
+ * @apiName Add a Recipe
+ * @apiGroup Chef Recipes
+ *
+ * @apiParam {String} title *Required* **Unique** title of recipe.
+ * @apiParam {number} servings *Required* Number of people recipe serves.
+ * @apiParam {String} instructions *Required* How to make the recipe.
+ *
+ * @apiSuccessExample Success-Response:
+ *    HTTP/1.1 200 OK
+ *    {
+ *      "id": 6,
+ *      "title": "This was a tasty recipe!",
+ *      "servings": 1,
+ *      "instructions": "Nom nom nom"
+ *    }
+ */
+router.put("/:chef_id/recipes/:recipe_id", (req, res) => {
+  const { recipe_id } = req.params;
+  const updates = req.body;
+  editRecipe(recipe_id, updates)
+    .then(changes => res.status(200).json(changes))
     .catch(err => res.status(500).json({ error: err.message }));
 });
 

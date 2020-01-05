@@ -5,7 +5,6 @@ module.exports = {
   addRecipe,
   getChefsRecipes,
   getChefById,
-  getRecipeById,
   editRecipe,
   deleteRecipe
 };
@@ -43,12 +42,17 @@ async function addRecipe(chefID, recipe) {
   return getChefsRecipes(chefID);
 }
 
-function getRecipeById() {
-  return null;
+function getRecipeByID(id) {
+  return db("recipes")
+    .where({ id })
+    .first();
 }
 
-function editRecipe() {
-  return null;
+function editRecipe(id, changes) {
+  return db("recipes")
+    .where({ id })
+    .update(changes, "id")
+    .then(() => getRecipeByID(id));
 }
 
 function deleteRecipe() {
