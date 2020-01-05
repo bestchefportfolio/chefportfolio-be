@@ -1,11 +1,8 @@
 exports.up = function(knex) {
   return knex.schema.createTable("meal_types", tbl => {
+    tbl.increments();
     tbl
-      .increments()
-      .unsigned()
-      .primary();
-    tbl
-      .string("option", 128)
+      .string("type", 128)
       .unique()
       .notNullable();
   });

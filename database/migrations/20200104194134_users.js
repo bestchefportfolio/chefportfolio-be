@@ -1,16 +1,13 @@
 exports.up = function(knex) {
   return knex.schema.createTable("users", tbl => {
-    tbl
-      .increments()
-      .unsigned()
-      .primary();   
+    tbl.increments();
     tbl
       .string("username", 128)
       .unique()
       .notNullable();
-    tbl.string("password", 128).notNullable();
-    tbl.string("email", 128).unique();
-    tbl.string("name", 128);
+    tbl.string("password").notNullable();
+    tbl.string("email").unique();
+    tbl.string("name");
     tbl.integer("is_chef").defaultTo(0);
   });
 };

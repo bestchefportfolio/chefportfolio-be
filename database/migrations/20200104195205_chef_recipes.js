@@ -1,9 +1,14 @@
 exports.up = function(knex) {
-  return knex.schema.createTable("recipe_meal_type", tbl => {
+  return knex.schema.createTable("chef_recipes", tbl => {
+    tbl.increments();
     tbl
-      .increments()
+      .integer("chef_id")
       .unsigned()
-      .primary();
+      .notNullable()
+      .references("id")
+      .inTable("chefs")
+      .onDelete("CASCADE")
+      .onUpdate("CASCADE");
     tbl
       .integer("recipe_id")
       .unsigned()
@@ -12,17 +17,9 @@ exports.up = function(knex) {
       .inTable("recipes")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
-    tbl
-      .integer("meal_type_id")
-      .unsigned()
-      .notNullable()
-      .references("id")
-      .inTable("meal_types")
-      .onDelete("CASCADE")
-      .onUpdate("CASCADE");
   });
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists("recipe_meal_type");
+  return knex.schema.dropTableIfExists("chef_recipes");
 };

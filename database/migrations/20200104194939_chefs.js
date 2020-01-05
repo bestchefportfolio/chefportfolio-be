@@ -1,12 +1,6 @@
 exports.up = function(knex) {
   return knex.schema.createTable("chefs", tbl => {
-    tbl
-      .increments()
-      .unsigned()
-      .primary();
-    tbl.string("location", 128).notNullable();
-    tbl.integer("phone_number").notNullable();
-    tbl.string("business_name", 128).unique();
+    tbl.increments();
     tbl
       .integer("user_id")
       .unsigned()
@@ -15,6 +9,12 @@ exports.up = function(knex) {
       .inTable("users")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
+    tbl.string("location").notNullable();
+    tbl
+      .string("phone_number")
+      .unique()
+      .notNullable();
+    tbl.string("business_name").unique().notNullable();
   });
 };
 
