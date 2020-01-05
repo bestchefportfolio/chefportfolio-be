@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const { addRecipe, getChefsRecipes } = require("./model.js.js");
+const { addRecipe, getChefsRecipes } = require("./model.js");
 
 router.post("/:id/recipes/", (req, res) => {
   addRecipe(req.body)

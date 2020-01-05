@@ -20,3 +20,15 @@ function getChefsRecipes(chefID) {
     .select("r.id", "r.title", "r.instructions")
     .where("r.chef_id", chefID);
 }
+
+function getRecipeById() {
+  return null;
+}
+
+function editRecipe() {
+  return null;
+}
+
+function deleteRecipe() {
+  return null;
+}
