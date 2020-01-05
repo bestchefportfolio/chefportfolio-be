@@ -8,6 +8,7 @@ exports.up = function(knex) {
       .string("title", 128)
       .unique()
       .notNullable();
+    tbl.text("instructions").notNullable();
   });
 };
 

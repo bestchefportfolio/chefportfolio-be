@@ -6,7 +6,7 @@ const { generateToken } = require("../../helpers/config/generateToken.js");
 
 // todo -- create error messages for register
 /**
- * @api {post} register Register 
+ * @api {post} register Register
  * @apiName Register
  * @apiGroup Auth
  *
