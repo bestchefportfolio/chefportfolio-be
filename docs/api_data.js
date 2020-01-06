@@ -13,7 +13,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "username",
-            "description": "<p>Unique Username for the User.</p>"
+            "description": "<p><em>Unique</em> | Username for the User.</p>"
           },
           {
             "group": "Parameter",
@@ -83,21 +83,21 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "username",
-            "description": "<p><em>Required</em> Unique Username for the User.</p>"
+            "description": "<p><strong>Required</strong> | <em>Unique</em> | Username for the User.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "password",
-            "description": "<p><em>Required</em> Password of the User.</p>"
+            "description": "<p><strong>Required</strong> | Password of the User.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "email",
-            "description": "<p>Unique Email of the User.</p>"
+            "description": "<p><em>Unique</em> | Email of the User.</p>"
           },
           {
             "group": "Parameter",
@@ -154,21 +154,21 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "username",
-            "description": "<p><em>Required</em> Unique Username for the User.</p>"
+            "description": "<p><strong>Required</strong> | <em>Unique</em> | Username for the User.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "password",
-            "description": "<p><em>Required</em> Password of the User.</p>"
+            "description": "<p><strong>Required</strong> | Password of the User.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "email",
-            "description": "<p>Unique Email of the User.</p>"
+            "description": "<p><em>Unique</em> | Email of the User.</p>"
           },
           {
             "group": "Parameter",
@@ -189,21 +189,21 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "location",
-            "description": "<p><em>Required</em> Location of Chef</p>"
+            "description": "<p><strong>Required</strong> | Location of Chef</p>"
           },
           {
             "group": "Parameter",
             "type": "Number",
             "optional": false,
             "field": "phone_number",
-            "description": "<p><em>Required</em> Phone Number of Chef</p>"
+            "description": "<p><strong>Required</strong> | Phone Number of Chef</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "business_name",
-            "description": "<p><em>Required</em> Company Name Chef is employeed at</p>"
+            "description": "<p><strong>Required</strong> | Company Name Chef is employeed at</p>"
           }
         ]
       }
@@ -246,21 +246,21 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "title",
-            "description": "<p><em>Required</em> <strong>Unique</strong> title of recipe.</p>"
+            "description": "<p><strong>Required</strong> | <em>Unique</em> | title of recipe.</p>"
           },
           {
             "group": "Parameter",
             "type": "number",
             "optional": false,
             "field": "servings",
-            "description": "<p><em>Required</em> Number of people recipe serves.</p>"
+            "description": "<p><strong>Required</strong> | Number of people recipe serves.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "instructions",
-            "description": "<p><em>Required</em> How to make the recipe.</p>"
+            "description": "<p><strong>Required</strong> | How to make the recipe.</p>"
           },
           {
             "group": "Parameter",
@@ -348,21 +348,21 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "title",
-            "description": "<p><em>Required</em> <strong>Unique</strong> title of recipe.</p>"
+            "description": "<p><strong>Required</strong> | <em>Unique</em> | title of recipe.</p>"
           },
           {
             "group": "Parameter",
             "type": "number",
             "optional": false,
             "field": "servings",
-            "description": "<p><em>Required</em> Number of people recipe serves.</p>"
+            "description": "<p><strong>Required</strong> | Number of people recipe serves.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "instructions",
-            "description": "<p><em>Required</em> How to make the recipe.</p>"
+            "description": "<p><strong>Required</strong> | How to make the recipe.</p>"
           }
         ]
       }
@@ -561,6 +561,44 @@ define({ "api": [
     },
     "version": "0.0.0",
     "filename": "api/routes/recipe_ingredients/router.js",
+    "groupTitle": "Recipes"
+  },
+  {
+    "type": "get",
+    "url": "recipes/",
+    "title": "List All Recipes",
+    "name": "Get_All_Recipes",
+    "group": "Recipes",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n  {\n   \"all_recipes\": [\n     {\n       \"id\": 1,\n       \"title\": \"abc\",\n       \"servings\": 1,\n       \"instructions\": \"test\",\n       \"images\": null\n     },\n     {\n       \"id\": 2,\n       \"title\": \"test\",\n       \"servings\": 1,\n       \"instructions\": \"test\",\n       \"images\": null\n     },\n     {\n       \"id\": 3,\n       \"title\": \"testing\",\n       \"servings\": 1,\n       \"instructions\": \"test\",\n       \"images\": null\n     }\n   ]\n  }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "api/routes/recipes/router.js",
+    "groupTitle": "Recipes"
+  },
+  {
+    "type": "get",
+    "url": "recipes/:recipe_id",
+    "title": "Search for recipe",
+    "name": "Get_Recipe_By_Id",
+    "group": "Recipes",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n  {\n    \"recipe\": {\n      \"id\": 2,\n      \"title\": \"test\",\n      \"servings\": 1,\n      \"instructions\": \"test\",\n     \"images\": null\n   }\n  }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "api/routes/recipes/router.js",
     "groupTitle": "Recipes"
   },
   {
