@@ -56,7 +56,7 @@ router.post("/register", validateUniqueUserDetail, (req, res) => {
  * @apiParam {String} password **Required** | Password of the User.
  * @apiParam {String} email *Unique* | Email of the User.
  * @apiParam {String} name Name of User.
- * @apiParam {boolean} is_chef Do not add, defaults to false
+ * @apiParam {boolean} is_chef Do not add, defaults to true
  * @apiParam {String} location **Required** | Location of Chef
  * @apiParam {Number} phone_number **Required** | Phone Number of Chef
  * @apiParam {String} business_name **Required** | Company Name Chef is employeed at
