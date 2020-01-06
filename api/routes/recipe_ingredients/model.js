@@ -9,16 +9,7 @@ module.exports = {
 };
 
 async function addRecipeIngredient(ingredient) {
-  /* 
-        ingredient = {
-            recipe_id,
-            ingredient_id,
-            quantity_id,
-            quantity_value
-        }
-    */
   const id = ingredient.recipe_id;
-  console.log("id", id)
   await db("recipe_ingredients").insert(ingredient);
   return getRecipeIngredients(id);
 }

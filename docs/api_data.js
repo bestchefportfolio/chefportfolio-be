@@ -417,5 +417,182 @@ define({ "api": [
     "version": "0.0.0",
     "filename": "api/routes/ingredients/router.js",
     "groupTitle": "Ingredients"
+  },
+  {
+    "type": "post",
+    "url": "recipes/:recipe_id/ingredients/:ingredient_id",
+    "title": "Add an Ingredient to a recipe",
+    "name": "Add_Recipe_Ingredient",
+    "group": "Recipes",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "recipe_id",
+            "description": "<p><strong>Required</strong> | url param to distinguish which recipe</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "ingredient_id",
+            "description": "<p><strong>Required</strong> | url param to distinguish which ingredient</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "quantity_id",
+            "description": "<p><strong>Required</strong> | body param to tell which quantity unit to use</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "quantity_value",
+            "description": "<p><strong>Required</strong> | body param to tell how much of quantity unit to use</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 201 Created\n  {\n   \"recipe_ingredients\": {\n     \"recipe\": {\n       \"id\": 1,\n       \"title\": \"abc\",\n       \"servings\": 1,\n       \"instructions\": \"test\",\n       \"images\": null\n     },\n     \"ingredients\": [\n       {\n         \"recipe_ingredient_id\": 1,\n         \"ingredient_id\": 1,\n         \"ingredient\": \"cheese\",\n         \"quantity_value\": 2,\n         \"unit_abbreviation\": \"oz.\"\n       },\n       {\n         \"recipe_ingredient_id\": 2,\n         \"ingredient_id\": 2,\n         \"ingredient\": \"eggs\",\n         \"quantity_value\": 2,\n         \"unit_abbreviation\": \"qt.\"\n       },\n       {\n         \"recipe_ingredient_id\": 3,\n         \"ingredient_id\": 3,\n         \"ingredient\": \"milk\",\n         \"quantity_value\": 4,\n         \"unit_abbreviation\": \"lb.\"\n       }\n     ]\n   }\n  }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "api/routes/recipe_ingredients/router.js",
+    "groupTitle": "Recipes"
+  },
+  {
+    "type": "delete",
+    "url": "recipes/:recipe_id/ingredients/:recipe_ingredient_id",
+    "title": "Delete an Ingredient from a recipe",
+    "name": "Delete_Recipe_Ingredient",
+    "group": "Recipes",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "recipe_id",
+            "description": "<p><strong>Required</strong> | url param to distinguish which recipe</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "recipe_ingredient_id",
+            "description": "<p><strong>Required</strong> | url param to distinguish which ingredient from recipe list</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n  {\n   \"currentRecipes\": {\n     \"recipe\": {\n       \"id\": 1,\n       \"title\": \"abc\",\n       \"servings\": 1,\n       \"instructions\": \"test\",\n       \"images\": null\n     },\n     \"ingredients\": [\n       {\n         \"recipe_ingredient_id\": 1,\n         \"ingredient_id\": 1,\n         \"ingredient\": \"cheese\",\n         \"quantity_value\": 2,\n         \"unit_abbreviation\": \"oz.\"\n       },\n       {\n         \"recipe_ingredient_id\": 2,\n         \"ingredient_id\": 2,\n         \"ingredient\": \"eggs\",\n         \"quantity_value\": 2,\n         \"unit_abbreviation\": \"qt.\"\n       }\n     ]\n   }\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "api/routes/recipe_ingredients/router.js",
+    "groupTitle": "Recipes"
+  },
+  {
+    "type": "put",
+    "url": "recipes/:recipe_id/ingredients/:ingredient_id",
+    "title": "Edit an Ingredient from a recipe",
+    "name": "Edit_Recipe_Ingredient",
+    "group": "Recipes",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "recipe_id",
+            "description": "<p><strong>Required</strong> | url param to distinguish which recipe</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "ingredient_id",
+            "description": "<p><strong>Required</strong> | url param to distinguish which ingredient</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "quantity_id",
+            "description": "<p><strong>Required</strong> | body param to tell which quantity unit to use</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "quantity_value",
+            "description": "<p><strong>Required</strong> | body param to tell how much of quantity unit to use</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n  {\n    \"updated\": {\n      \"recipe\": {\n        \"id\": 1,\n        \"title\": \"abc\",\n        \"servings\": 1,\n        \"instructions\": \"test\",\n        \"images\": null\n      },\n      \"ingredients\": [\n {\n   \"recipe_ingredient_id\": 1,\n   \"ingredient_id\": 1,\n   \"ingredient\": \"cheese\",\n   \"quantity_value\": 2,\n   \"unit_abbreviation\": \"oz.\"\n        }\n      ]\n    }\n  }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "api/routes/recipe_ingredients/router.js",
+    "groupTitle": "Recipes"
+  },
+  {
+    "type": "get",
+    "url": "recipes/:recipe_id/ingredients",
+    "title": "Gets all ingredients for a recipe",
+    "name": "Get_Recipe_Ingredients",
+    "group": "Recipes",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "recipe_id",
+            "description": "<p><strong>Required</strong> | url param to distinguish which recipe</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n  {\n   \"recipe\": {\n     \"id\": 1,\n     \"title\": \"abc\",\n     \"servings\": 1,\n     \"instructions\": \"test\",\n     \"images\": null\n   },\n   \"ingredients\": [\n     {\n       \"recipe_ingredient_id\": 1,\n       \"ingredient_id\": 1,\n       \"ingredient\": \"cheese\",\n       \"quantity_value\": 2,\n       \"unit_abbreviation\": \"oz.\"\n     },\n     {\n       \"recipe_ingredient_id\": 2,\n       \"ingredient_id\": 2,\n       \"ingredient\": \"eggs\",\n       \"quantity_value\": 2,\n       \"unit_abbreviation\": \"qt.\"\n     }\n   ]\n  }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "api/routes/recipe_ingredients/router.js",
+    "groupTitle": "Recipes"
   }
 ] });
