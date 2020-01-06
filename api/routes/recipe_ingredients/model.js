@@ -45,13 +45,15 @@ async function getRecipeIngredients(id) {
 }
 
 async function editRecipeIngredients(recipe_id, ingredient_id, changes) {
-  console.log("recipe_id: ", recipe_id )
-  console.log("ingredient_id: ",ingredient_id )
-  console.log("changes: ", changes)
+  console.log("recipe_id: ", recipe_id);
+  console.log("ingredient_id: ", ingredient_id);
+  console.log("changes: ", changes);
   return db("recipe_ingredients as ri")
-    .where("ri.ingredient_id", { ingredient_id })
+    .where("ri.ingredient_id", ingredient_id)
     .update(changes, "id")
-    .then(() => getRecipeIngredients(recipe_id));
+    .then(() => {
+      return getRecipeIngredients(recipe_id);
+    });
 }
 
 function deleteRecipeIngredients(id) {
