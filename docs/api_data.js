@@ -13,14 +13,14 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "username",
-            "description": "<p><em>Unique</em> | Username for the User.</p>"
+            "description": "<p><strong>Required</strong> | <em>Unique</em> | Username for the User.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "password",
-            "description": "<p>Password of the User.</p>"
+            "description": "<p><strong>Required</strong> | Password of the User.</p>"
           }
         ]
       }
@@ -224,6 +224,134 @@ define({ "api": [
         {
           "title": "Success-Response:",
           "content": "HTTP/1.1 201 Created\n{\n  \"message\": \"What's your favourite dish?\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "api/routes/auth/router.js",
+    "groupTitle": "Auth"
+  },
+  {
+    "type": "put",
+    "url": "user/:user_id/update",
+    "title": "Update User Info",
+    "name": "Update_User",
+    "group": "Auth",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "username",
+            "description": "<p><strong>Required</strong> | <em>Unique</em> | Username for the User.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": "<p><strong>Required</strong> | Password of the User.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p><em>Unique</em> | Email of the User.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name of User.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "updatedUser",
+            "description": "<p>Shows everything but password to render for user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n {\n   \"updatedUser\": {\n     \"id\": 1,\n     \"username\": \"admins\",\n     \"email\": \"bananas@gmail.com\",\n     \"name\": \"adminchef\"\n    }\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "api/routes/auth/router.js",
+    "groupTitle": "Auth"
+  },
+  {
+    "type": "put",
+    "url": "user/:user_id/update",
+    "title": "Update User Info",
+    "name": "Update_User",
+    "group": "Auth",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "username",
+            "description": "<p><strong>Required</strong> | <em>Unique</em> | Username for the User.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": "<p><strong>Required</strong> | Password of the User.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p><em>Unique</em> | Email of the User.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name of User.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "success",
+            "description": "<p>sucessfully deleted user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n  {\n    \"success\": \"successfully deleted user\"\n  }",
           "type": "json"
         }
       ]
