@@ -8,12 +8,12 @@ const {
 } = require("./model.js");
 
 /**
- * @api {post} recipes/:recipe_id/ingredients/:ingredient_id Add an Ingredient to a recipe
+ * @api {post} recipes/:recipe_id/ingredients/ Add an Ingredient to a recipe
  * @apiName Add Recipe Ingredient
  * @apiGroup Recipes
  *
  * @apiParam {Number} recipe_id **Required** | url param to distinguish which recipe
- * @apiParam {Number} ingredient_id **Required** | url param to distinguish which ingredient
+ * @apiParam {Number} ingredient_id **Required** | body param to distinguish which ingredient
  * @apiParam {Number} quantity_id **Required** | body param to tell which quantity unit to use
  * @apiParam {Number} quantity_value **Required** | body param to tell how much of quantity unit to use
  *
@@ -55,8 +55,14 @@ const {
  *      }
  */
 
-router.post("/:recipe_id/ingredients/:ingredient_id", (req, res) => {
-  // add a middleware where if ingredient does not exist yet add to database
+router.post("/:recipe_id/ingredients/", (req, res) => {
+  /*
+    add a middleware where 
+      - validate recipe_id
+      - validate ingredient_id here before it goes to model
+      - if ingredient does not exist yet add to database --
+      - all parts of body are present: { recipe_id, ingredient_id, quantity_id, quantity_value }
+  */
   const ingredient = {
     recipe_id: Number(req.params.recipe_id),
     ingredient_id: Number(req.params.ingredient_id),
