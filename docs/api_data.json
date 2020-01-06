@@ -632,5 +632,35 @@
     "version": "0.0.0",
     "filename": "api/routes/recipe_ingredients/router.js",
     "groupTitle": "Recipes"
+  },
+  {
+    "type": "get",
+    "url": "allusernames",
+    "title": "Get All Users by username and name",
+    "name": "Users",
+    "group": "Users/Chefs",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "users",
+            "description": "<p>Object that contains User's username and name.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"users\": [\n    {\n      \"username\": \"admin\",\n      \"name\": \"BestChefAdmin\"\n    },\n    {\n      \"username\": \"blubsbunny\",\n      \"name\": null\n    },\n    {\n      \"username\": \"misunderstoodchef86\",\n      \"name\": \"Gordan Ramsy\"\n    }\n  ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "api/routes/auth/router.js",
+    "groupTitle": "Users/Chefs"
   }
 ]

@@ -160,6 +160,33 @@ router.delete("/chef/:chef_id/delete", (req, res) => {
     .catch(err => res.status(500).json({ error: err.message }));
 });
 
+/**
+ * @api {get} allusernames Get All Users by username and name
+ * @apiName Users
+ * @apiGroup Users/Chefs
+ *
+ * @apiSuccess {Object} users Object that contains User's username and name.
+ *
+ * @apiSuccessExample Success-Response:
+ *    HTTP/1.1 200 OK
+ *    {
+ *      "users": [
+ *        {
+ *          "username": "admin",
+ *          "name": "BestChefAdmin"
+ *        },
+ *        {
+ *          "username": "blubsbunny",
+ *          "name": null
+ *        },
+ *        {
+ *          "username": "misunderstoodchef86",
+ *          "name": "Gordan Ramsy"
+ *        }
+ *      ]
+ *    }
+ */
+
 router.get("/allusernames", (req, res) => {
   getAllUsernames()
     .then(users => res.status(200).json({ users }))
