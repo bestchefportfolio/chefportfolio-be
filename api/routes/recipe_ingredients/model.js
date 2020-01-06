@@ -17,8 +17,10 @@ async function addRecipeIngredient(ingredient) {
             quantity_value
         }
     */
-  const newIngredient = await db("recipe_ingredients").insert(ingredient);
-  return getRecipeIngredients(newIngredient.recipe_id);
+  const id = ingredient.recipe_id;
+  console.log("id", id)
+  await db("recipe_ingredients").insert(ingredient);
+  return getRecipeIngredients(id);
 }
 
 async function getRecipeIngredients(id) {
@@ -53,8 +55,6 @@ async function editRecipeIngredients(recipe_id, ingredient_id, changes) {
 }
 
 function deleteRecipeIngredients(recipe_id, ingredient_id) {
-  console.log("recipe_id: ", recipe_id, `\n`);
-  console.log("ingredient_id: ", ingredient_id, `\n`);
   return db("recipe_ingredients as ri")
     .where("ri.id", ingredient_id)
     .del()

@@ -8,6 +8,21 @@ const {
 } = require("./model.js");
 
 // add ingredient to recipe
+
+/**
+ * @api {post} recipes/:recipe_id/ingredients/:ingredient_id Add an Ingredient to a recipe
+ * @apiName Add Recipe Ingredient
+ * @apiGroup Recipes
+ *
+ * @apiParam {Number} recipe_id **Required** | url param to distinguish which recipe
+ * @apiParam {Number} ingredient_id **Required** | url param to distinguish which ingredient
+ * @apiParam {Number} quantity_id **Required** | body param to tell which quantity unit to use
+ * @apiParam {Number} quantity_value **Required** | body param to tell how much of quantity unit to use
+ *
+ * @apiSuccessExample Success-Response:
+ *    HTTP/1.1 201 Created
+ */
+
 router.post("/:recipe_id/ingredients/:ingredient_id", (req, res) => {
   // add a middleware where if ingredient does not exist yet add to database
   const ingredient = {
@@ -16,9 +31,8 @@ router.post("/:recipe_id/ingredients/:ingredient_id", (req, res) => {
     quantity_id: req.body.quantity_id,
     quantity_value: req.body.quantity_value
   };
-  console.log("ingredient: ", ingredient);
   addRecipeIngredient(ingredient)
-    .then(ingredients => res.status(200).json({ ingredients }))
+    .then(recipe_ingredients => res.status(200).json({ recipe_ingredients }))
     .catch(err => res.status(500).json({ error: err.message }));
 });
 
