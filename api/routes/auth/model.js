@@ -10,7 +10,7 @@ module.exports = {
   deleteChef,
   getAllUsernames,
   getByUserDetail,
-  getByChefDetail
+  getByChefDetail,
 };
 
 function add(user) {

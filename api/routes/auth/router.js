@@ -15,6 +15,7 @@ const { generateToken } = require("../../helpers/config/generateToken.js");
 
 const validateUniqueUserDetail = require("./middleware/validateUniqueUserDetail.js");
 const validateUniqueChefDetail = require("./middleware/validateUniqueChefDetail.js");
+const validateUserID = require('./middleware/validateUserID.js')
 
 // todo -- create error messages for register
 /**
@@ -193,7 +194,7 @@ router.put("/user/:user_id/update", (req, res) => {
  *      }
  */
 
-router.delete("/user/:user_id/delete", (req, res) => {
+router.delete("/user/:user_id/delete", validateUserID, (req, res) => {
   deleteUser(req.params.user_id, req.body)
     .then(() => res.status(200).json({ success: "successfully deleted user" }))
     .catch(err => res.status(500).json({ error: err.message }, err));
