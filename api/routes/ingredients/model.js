@@ -35,3 +35,7 @@ function addIngredientToRecipe(ingredient) {
 function getAllMealTypes() {
   return db("meal_types");
 }
+
+function addMealType(meal_types) {
+  return db("meal_typess").insert(meal_types, "id");
+}

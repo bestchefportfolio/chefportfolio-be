@@ -8,7 +8,9 @@ module.exports = {
   deleteUser,
   editChef,
   deleteChef,
-  getAllUsernames
+  getAllUsernames,
+  getByUserDetail,
+  getByChefDetail,
 };
 
 function add(user) {
@@ -20,6 +22,10 @@ function getBy(user) {
     .select("u.username")
     .where(user)
     .first();
+}
+
+function getByUserDetail(detail) {
+  return db("users").where(detail);
 }
 
 function getUserById(id) {
@@ -34,6 +40,10 @@ function getByChefID(chefID) {
     .select("chefs.id", "chefs.username")
     .where(chefID)
     .first();
+}
+
+function getByChefDetail(detail) {
+  return db("chefs").where(detail);
 }
 
 async function addChef(user, chef) {

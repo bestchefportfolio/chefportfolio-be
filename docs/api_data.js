@@ -182,7 +182,7 @@ define({ "api": [
             "type": "boolean",
             "optional": false,
             "field": "is_chef",
-            "description": "<p>Do not add, defaults to false</p>"
+            "description": "<p>Do not add, defaults to true</p>"
           },
           {
             "group": "Parameter",

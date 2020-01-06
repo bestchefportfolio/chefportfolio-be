@@ -13,6 +13,10 @@ const {
 } = require("./model.js");
 const { generateToken } = require("../../helpers/config/generateToken.js");
 
+const validateUniqueUserDetail = require("./middleware/validateUniqueUserDetail.js");
+const validateUniqueChefDetail = require("./middleware/validateUniqueChefDetail.js");
+const validateUserID = require('./middleware/validateUserID.js')
+
 // todo -- create error messages for register
 /**
  * @api {post} register Register
@@ -33,7 +37,7 @@ const { generateToken } = require("../../helpers/config/generateToken.js");
  *      "message": "Thanks for joining the club!"
  *    }
  */
-router.post("/register", (req, res) => {
+router.post("/register", validateUniqueUserDetail, (req, res) => {
   let newUser = req.body;
   newUser.password = bcrypt.hashSync(newUser.password, 10);
   add(newUser)
@@ -52,7 +56,7 @@ router.post("/register", (req, res) => {
  * @apiParam {String} password **Required** | Password of the User.
  * @apiParam {String} email *Unique* | Email of the User.
  * @apiParam {String} name Name of User.
- * @apiParam {boolean} is_chef Do not add, defaults to false
+ * @apiParam {boolean} is_chef Do not add, defaults to true
  * @apiParam {String} location **Required** | Location of Chef
  * @apiParam {Number} phone_number **Required** | Phone Number of Chef
  * @apiParam {String} business_name **Required** | Company Name Chef is employeed at
@@ -71,26 +75,31 @@ router.post("/register", (req, res) => {
 // add error handling
 
 // add a chef
-router.post("/register/chef", (req, res) => {
-  let newUser = {
-    username: req.body.username,
-    password: req.body.password,
-    email: req.body.email,
-    name: req.body.name,
-    is_chef: 1
-  };
+router.post(
+  "/register/chef",
+  validateUniqueUserDetail,
+  validateUniqueChefDetail,
+  (req, res) => {
+    let newUser = {
+      username: req.body.username,
+      password: req.body.password,
+      email: req.body.email,
+      name: req.body.name,
+      is_chef: 1
+    };
 
-  let newChef = {
-    location: req.body.location,
-    phone_number: req.body.phone_number,
-    business_name: req.body.business_name
-  };
-  addChef(newUser, newChef)
-    .then(() =>
-      res.status(201).json({ message: "What's your favourite dish?" })
-    )
-    .catch(err => res.status(500).json({ error: err.message }));
-});
+    let newChef = {
+      location: req.body.location,
+      phone_number: req.body.phone_number,
+      business_name: req.body.business_name
+    };
+    addChef(newUser, newChef)
+      .then(() =>
+        res.status(201).json({ message: "What's your favourite dish?" })
+      )
+      .catch(err => res.status(500).json({ error: err.message }));
+  }
+);
 
 /**
  * @api {post} login Login
@@ -183,9 +192,9 @@ router.put("/user/:user_id/update", (req, res) => {
  *      {
  *        "success": "successfully deleted user"
  *      }
- */ 
+ */
 
-router.delete("/user/:user_id/delete", (req, res) => {
+router.delete("/user/:user_id/delete", validateUserID, (req, res) => {
   deleteUser(req.params.user_id, req.body)
     .then(() => res.status(200).json({ success: "successfully deleted user" }))
     .catch(err => res.status(500).json({ error: err.message }, err));
