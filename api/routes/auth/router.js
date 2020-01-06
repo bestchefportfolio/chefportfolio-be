@@ -13,7 +13,7 @@ const {
 } = require("./model.js");
 const { generateToken } = require("../../helpers/config/generateToken.js");
 
-const validateUniqueUsername = require("./middleware/validateUniqueUsername.js");
+const validateUniqueUserDetail = require("./middleware/validateUniqueUserDetail.js");
 const validateUniqueChefDetail = require("./middleware/validateUniqueChefDetail.js");
 
 // todo -- create error messages for register
@@ -36,7 +36,7 @@ const validateUniqueChefDetail = require("./middleware/validateUniqueChefDetail.
  *      "message": "Thanks for joining the club!"
  *    }
  */
-router.post("/register", validateUniqueUsername, (req, res) => {
+router.post("/register", validateUniqueUserDetail, (req, res) => {
   let newUser = req.body;
   newUser.password = bcrypt.hashSync(newUser.password, 10);
   add(newUser)
@@ -76,8 +76,8 @@ router.post("/register", validateUniqueUsername, (req, res) => {
 // add a chef
 router.post(
   "/register/chef",
-  validateUniqueUsername,
-  validateUniqueUsername,
+  validateUniqueUserDetail,
+  validateUniqueChefDetail,
   (req, res) => {
     let newUser = {
       username: req.body.username,

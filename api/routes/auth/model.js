@@ -9,7 +9,7 @@ module.exports = {
   editChef,
   deleteChef,
   getAllUsernames,
-  getByUsername,
+  getByUserDetail,
   getByChefDetail
 };
 
@@ -24,9 +24,8 @@ function getBy(user) {
     .first();
 }
 
-function getByUsername(username) {
-  console.log(username);
-  return db("users").where({ username });
+function getByUserDetail(detail) {
+  return db("users").where(detail);
 }
 
 function getUserById(id) {
@@ -44,7 +43,7 @@ function getByChefID(chefID) {
 }
 
 function getByChefDetail(detail) {
-  return db("chefs").where({ detail });
+  return db("chefs").where(detail);
 }
 
 async function addChef(user, chef) {
