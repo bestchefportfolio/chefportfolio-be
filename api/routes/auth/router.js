@@ -14,6 +14,7 @@ const {
 const { generateToken } = require("../../helpers/config/generateToken.js");
 
 const validateUniqueUsername = require("./middleware/validateUniqueUsername.js");
+const validateUniqueChefDetail = require("./middleware/validateUniqueChefDetail.js");
 
 // todo -- create error messages for register
 /**
@@ -73,26 +74,31 @@ router.post("/register", validateUniqueUsername, (req, res) => {
 // add error handling
 
 // add a chef
-router.post("/register/chef", (req, res) => {
-  let newUser = {
-    username: req.body.username,
-    password: req.body.password,
-    email: req.body.email,
-    name: req.body.name,
-    is_chef: 1
-  };
+router.post(
+  "/register/chef",
+  validateUniqueUsername,
+  validateUniqueUsername,
+  (req, res) => {
+    let newUser = {
+      username: req.body.username,
+      password: req.body.password,
+      email: req.body.email,
+      name: req.body.name,
+      is_chef: 1
+    };
 
-  let newChef = {
-    location: req.body.location,
-    phone_number: req.body.phone_number,
-    business_name: req.body.business_name
-  };
-  addChef(newUser, newChef)
-    .then(() =>
-      res.status(201).json({ message: "What's your favourite dish?" })
-    )
-    .catch(err => res.status(500).json({ error: err.message }));
-});
+    let newChef = {
+      location: req.body.location,
+      phone_number: req.body.phone_number,
+      business_name: req.body.business_name
+    };
+    addChef(newUser, newChef)
+      .then(() =>
+        res.status(201).json({ message: "What's your favourite dish?" })
+      )
+      .catch(err => res.status(500).json({ error: err.message }));
+  }
+);
 
 /**
  * @api {post} login Login

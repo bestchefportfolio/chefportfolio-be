@@ -7,7 +7,6 @@ module.exports = function validateUniqueUsername(req, res, next) {
 
   getByUsername(username)
     .then(user => {
-      console.log("user: ", user);
       if (user.length)
         res.status(409).json({
           message: "Username already exists. Please choose another. 😊"
