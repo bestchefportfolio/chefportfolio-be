@@ -3,7 +3,12 @@ const db = require("../../../database/dbconfig.js");
 module.exports = {
   add,
   getBy,
-  addChef
+  addChef,
+  editUser,
+  deleteUser,
+  editChef,
+  deleteChef,
+  getAllUsernames
 };
 
 function add(user) {
@@ -12,12 +17,21 @@ function add(user) {
 
 function getBy(user) {
   return db("users")
+    .select("u.username")
     .where(user)
+    .first();
+}
+
+function getUserById(id) {
+  return db("users as u")
+    .select("u.id", "u.username", "u.email", "u.name")
+    .where({ id })
     .first();
 }
 
 function getByChefID(chefID) {
   return db("chefs")
+    .select("chefs.id", "chefs.username")
     .where(chefID)
     .first();
 }
@@ -31,10 +45,49 @@ async function addChef(user, chef) {
   const chefID = await db("chefs").insert(newChef);
 }
 
-/* 
-    ~~Todo~~
-    add edit function
-    add delete function
+function editUser(userID, changes) {
+  return db("users")
+    .where("users.id", userID)
+    .update(changes)
+    .then(() => getUserById(userID));
+}
 
-    different folder also add a way to update a user into a chef
-*/
+function deleteUser(userID) {
+  return db("users")
+    .where("users.id", userID)
+    .del();
+}
+
+async function editChef(chefID, changes) {
+  const chefChanges = {
+    location: changes.location,
+    phone_number: changes.phone_number,
+    business_name: changes.business_name
+  };
+  console.log("chefChanges: ", chefChanges);
+  const userChanges = {
+    username: changes.username,
+    password: changes.password,
+    email: changes.email,
+    name: changes.name
+  };
+  console.log("userChanges: ", userChanges);
+  await db("chefs")
+    .where("chefs.id", chefID)
+    .update(chefChanges, "id");
+  const chefObj = await getByChefID(chefID);
+  console.log("chefObj: ", chefObj, `\n`);
+  return editUser(chefObj.user_id, userChanges);
+}
+
+async function deleteChef() {
+  const chefObj = await db("chef")
+    .where(chefID)
+    .first();
+  console.log("chefObj: ", chefObj, `\n`);
+  return deleteUser(chefObj.user_id);
+}
+
+function getAllUsernames() {
+  return db("users").select("users.username", "users.name");
+}
