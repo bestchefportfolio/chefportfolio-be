@@ -2,11 +2,13 @@ const router = require("express").Router();
 
 const {
   addRecipe,
-  getChefById,
-  getChefsRecipes,
   editRecipe,
-  deleteRecipe
-} = require("./model.js");
+  deleteRecipe,
+  getRecipeById,
+  getChefById,
+  getChefRecipes,
+  getChefRecipesDetails
+} = require("./model");
 
 /**
  * @api {post} chef/:chef_id/recipes Add a Recipe
@@ -16,6 +18,7 @@ const {
  * @apiParam {String} title *Required* **Unique** title of recipe.
  * @apiParam {number} servings *Required* Number of people recipe serves.
  * @apiParam {String} instructions *Required* How to make the recipe.
+ * @apiParam {String} images An image to attach to recipe.
  *
  * @apiSuccessExample Success-Response:
  *    HTTP/1.1 201 Created
@@ -26,16 +29,16 @@ const {
  *      },
  *      "recipes": [
  *        {
- *          "chef_id": 2,
  *          "recipe_id": 4,
  *          "title": "Stuffed Pork Tenderloin Recipe",
  *          "servings": 4,
  *          "instructions": "Preheat the oven to 220°C/Gas 7..."
+ *          "images": null
  *        }
  *    ]
 }
  */
-router.post("/:chef_id/recipes/", (req, res) => {
+router.post("/:chef_id/recipes", (req, res) => {
   const chefID = req.params.chef_id;
   getChefById(chefID).then(chef => {
     addRecipe(chefID, req.body)
@@ -56,7 +59,7 @@ router.post("/:chef_id/recipes/", (req, res) => {
  * @apiGroup Chef Recipes
  *
  * @apiSuccessExample Success-Response:
- *    HTTP/1.1 200 Created
+ *    HTTP/1.1 200 OK
  *    {
  *      "chef": {
  *        "chef_name": "Gordan Ramsy",
@@ -69,6 +72,7 @@ router.post("/:chef_id/recipes/", (req, res) => {
  *          "title": "Stuffed Pork Tenderloin Recipe",
  *          "servings": 4,
  *          "instructions": "Preheat the oven to 220°C/Gas 7..."
+ *          "images": null
  *        },
  *        {
  *          "chef_id": 2,
@@ -76,14 +80,16 @@ router.post("/:chef_id/recipes/", (req, res) => {
  *          "title": "Gordon's Breakfast Pizza from Scrambled",
  *          "servings": 2,
  *          "instructions": "Remove the pizza dough ball from the fridge and let it warm to room temperature..."
- *        }     
+ *          "images": null
+ *         }     
  * ]
 }
  */
 
 router.get("/:chef_id/recipes", (req, res) => {
-  getChefsRecipes(req.params.chef_id)
-    .then(recipes => res.status(200).json({ recipes }))
+  console.log(req.params.chef_id);
+  getChefRecipes(req.params.chef_id)
+    .then(chefRecipes => res.status(200).json({ chefRecipes }))
     .catch(err => res.status(500).json({ error: err.message }));
 });
 
@@ -102,7 +108,8 @@ router.get("/:chef_id/recipes", (req, res) => {
  *      "id": 6,
  *      "title": "This was a tasty recipe!",
  *      "servings": 1,
- *      "instructions": "Nom nom nom"
+ *      "instructions": "Nom nom nom",
+ *      "images": null
  *    }
  */
 router.put("/:chef_id/recipes/:recipe_id", (req, res) => {

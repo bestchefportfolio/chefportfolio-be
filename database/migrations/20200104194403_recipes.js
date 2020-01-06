@@ -7,6 +7,7 @@ exports.up = function(knex) {
       .notNullable();
     tbl.integer("servings").notNullable();
     tbl.text("instructions").notNullable();
+    tbl.text('images')
   });
 };
 
