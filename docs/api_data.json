@@ -420,7 +420,7 @@
   },
   {
     "type": "post",
-    "url": "recipes/:recipe_id/ingredients/:ingredient_id",
+    "url": "recipes/:recipe_id/ingredients/",
     "title": "Add an Ingredient to a recipe",
     "name": "Add_Recipe_Ingredient",
     "group": "Recipes",
@@ -439,7 +439,7 @@
             "type": "Number",
             "optional": false,
             "field": "ingredient_id",
-            "description": "<p><strong>Required</strong> | url param to distinguish which ingredient</p>"
+            "description": "<p><strong>Required</strong> | body param to distinguish which ingredient</p>"
           },
           {
             "group": "Parameter",
