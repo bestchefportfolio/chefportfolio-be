@@ -4,7 +4,8 @@ const {
   getAllIngredients,
   addIngredient,
   getQuantityType,
-  addIngredientToRecipe
+  addIngredientToRecipe,
+  getAllMealTypes
 } = require("./model.js");
 
 /**
@@ -103,6 +104,10 @@ router.get("/quantities", (req, res) => {
       .json({ types })
       .catch(err => res.status(500).json({ error: err }))
   );
+});
+
+router.get("/meal-types", (req, res) => {
+  getAllMealTypes().then(mealtypes => res.status(200).json({ mealtypes }));
 });
 
 router.post("/", (req, res) => {
