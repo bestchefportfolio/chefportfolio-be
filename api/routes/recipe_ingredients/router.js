@@ -65,7 +65,7 @@ router.post("/:recipe_id/ingredients/", (req, res) => {
   */
   const ingredient = {
     recipe_id: Number(req.params.recipe_id),
-    ingredient_id: Number(req.params.ingredient_id),
+    ingredient_id: req.body.ingredient_id,
     quantity_id: req.body.quantity_id,
     quantity_value: req.body.quantity_value
   };
