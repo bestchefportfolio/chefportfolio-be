@@ -15,9 +15,9 @@ const {
  * @apiName Add a Recipe
  * @apiGroup Chef Recipes
  *
- * @apiParam {String} title *Required* **Unique** title of recipe.
- * @apiParam {number} servings *Required* Number of people recipe serves.
- * @apiParam {String} instructions *Required* How to make the recipe.
+ * @apiParam {String} title **Required** | *Unique* | title of recipe.
+ * @apiParam {number} servings **Required** | Number of people recipe serves.
+ * @apiParam {String} instructions **Required** | How to make the recipe.
  * @apiParam {String} images An image to attach to recipe.
  *
  * @apiSuccessExample Success-Response:
@@ -98,9 +98,9 @@ router.get("/:chef_id/recipes", (req, res) => {
  * @apiName Update
  * @apiGroup Chef Recipes
  *
- * @apiParam {String} title *Required* **Unique** title of recipe.
- * @apiParam {number} servings *Required* Number of people recipe serves.
- * @apiParam {String} instructions *Required* How to make the recipe.
+ * @apiParam {String} title **Required** | *Unique* | title of recipe.
+ * @apiParam {number} servings **Required** | Number of people recipe serves.
+ * @apiParam {String} instructions **Required** | How to make the recipe.
  *
  * @apiSuccessExample Success-Response:
  *    HTTP/1.1 200 OK

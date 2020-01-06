@@ -10,9 +10,9 @@ const { generateToken } = require("../../helpers/config/generateToken.js");
  * @apiName Register
  * @apiGroup Auth
  *
- * @apiParam {String} username *Required* Unique Username for the User.
- * @apiParam {String} password *Required* Password of the User.
- * @apiParam {String} email Unique Email of the User.
+ * @apiParam {String} username **Required** | *Unique* | Username for the User.
+ * @apiParam {String} password **Required** | Password of the User.
+ * @apiParam {String} email *Unique* | Email of the User.
  * @apiParam {String} name Name of User.
  * @apiParam {boolean} is_chef Do not add, defaults to false
  *
@@ -39,14 +39,14 @@ router.post("/register", (req, res) => {
  * @apiName RegisterChef
  * @apiGroup Auth
  *
- * @apiParam {String} username *Required* Unique Username for the User.
- * @apiParam {String} password *Required* Password of the User.
- * @apiParam {String} email Unique Email of the User.
+ * @apiParam {String} username **Required** | *Unique* | Username for the User.
+ * @apiParam {String} password **Required** | Password of the User.
+ * @apiParam {String} email *Unique* | Email of the User.
  * @apiParam {String} name Name of User.
  * @apiParam {boolean} is_chef Do not add, defaults to false
- * @apiParam {String} location *Required* Location of Chef
- * @apiParam {Number} phone_number *Required* Phone Number of Chef
- * @apiParam {String} business_name *Required* Company Name Chef is employeed at
+ * @apiParam {String} location **Required** | Location of Chef
+ * @apiParam {Number} phone_number **Required** | Phone Number of Chef
+ * @apiParam {String} business_name **Required** | Company Name Chef is employeed at
  *
  * @apiSuccess {String} message What's your favourite dish?
  *
@@ -88,7 +88,7 @@ router.post("/register/chef", (req, res) => {
  * @apiName Login
  * @apiGroup Auth
  *
- * @apiParam {String} username Unique Username for the User.
+ * @apiParam {String} username *Unique* | Username for the User.
  * @apiParam {String} password Password of the User.
  *
  * @apiSuccess {String} message Logged in <username>
