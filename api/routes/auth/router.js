@@ -97,8 +97,8 @@ router.post("/register/chef", (req, res) => {
  * @apiName Login
  * @apiGroup Auth
  *
- * @apiParam {String} username *Unique* | Username for the User.
- * @apiParam {String} password Password of the User.
+ * @apiParam {String} username **Required** | *Unique* | Username for the User.
+ * @apiParam {String} password **Required** | Password of the User.
  *
  * @apiSuccess {String} message Logged in <username>
  *
@@ -136,11 +136,54 @@ router.post("/login", (req, res) => {
     .catch(err => res.status(500).json({ error: err }));
 });
 
+/**
+ * @api {put} user/:user_id/update Update User Info
+ * @apiName Update User
+ * @apiGroup Auth
+ *
+ * @apiParam {String} username **Required** | *Unique* | Username for the User.
+ * @apiParam {String} password **Required** | Password of the User.
+ * @apiParam {String} email *Unique* | Email of the User.
+ * @apiParam {String} name Name of User.
+ *
+ * @apiSuccess {Object} updatedUser Shows everything but password to render for user
+ *
+ * @apiSuccessExample Success-Response:
+ *    HTTP/1.1 200 OK
+ *     {
+ *       "updatedUser": {
+ *         "id": 1,
+ *         "username": "admins",
+ *         "email": "bananas@gmail.com",
+ *         "name": "adminchef"
+ *        }
+ *     }
+ */
+
 router.put("/user/:user_id/update", (req, res) => {
   editUser(req.params.user_id, req.body)
     .then(updatedUser => res.status(200).json({ updatedUser }))
     .catch(err => res.status(500).json({ error: err.message }));
 });
+
+/**
+ * @api {put} user/:user_id/update Update User Info
+ * @apiName Update User
+ * @apiGroup Auth
+ *
+ * @apiParam {String} username **Required** | *Unique* | Username for the User.
+ * @apiParam {String} password **Required** | Password of the User.
+ * @apiParam {String} email *Unique* | Email of the User.
+ * @apiParam {String} name Name of User.
+ *
+ * @apiSuccess {String} success sucessfully deleted user
+ *
+ * @apiSuccessExample Success-Response:
+ *    HTTP/1.1 200 OK
+ *      {
+ *        "success": "successfully deleted user"
+ *      }
+ */ 
 
 router.delete("/user/:user_id/delete", (req, res) => {
   deleteUser(req.params.user_id, req.body)
@@ -159,6 +202,33 @@ router.delete("/chef/:chef_id/delete", (req, res) => {
     .then(() => res.status(200).json({ success: "successfully deleted chef" }))
     .catch(err => res.status(500).json({ error: err.message }));
 });
+
+/**
+ * @api {get} allusernames Get All Users by username and name
+ * @apiName Users
+ * @apiGroup Users/Chefs
+ *
+ * @apiSuccess {Object} users Object that contains User's username and name.
+ *
+ * @apiSuccessExample Success-Response:
+ *    HTTP/1.1 200 OK
+ *    {
+ *      "users": [
+ *        {
+ *          "username": "admin",
+ *          "name": "BestChefAdmin"
+ *        },
+ *        {
+ *          "username": "blubsbunny",
+ *          "name": null
+ *        },
+ *        {
+ *          "username": "misunderstoodchef86",
+ *          "name": "Gordan Ramsy"
+ *        }
+ *      ]
+ *    }
+ */
 
 router.get("/allusernames", (req, res) => {
   getAllUsernames()

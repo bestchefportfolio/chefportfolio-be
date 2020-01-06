@@ -10,7 +10,8 @@ exports.seed = function(knex) {
         { id: 3, type: "dinner" },
         { id: 4, type: "appetizer" },
         { id: 5, type: "brunch" },
-        { id: 6, type: "dessert" }
+        { id: 6, type: "dessert" },
+        { id: 7, type: "snack" }
       ]);
     });
 };

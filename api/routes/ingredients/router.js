@@ -4,7 +4,8 @@ const {
   getAllIngredients,
   addIngredient,
   getQuantityType,
-  addIngredientToRecipe
+  addIngredientToRecipe,
+  getAllMealTypes
 } = require("./model.js");
 
 /**
@@ -18,6 +19,9 @@ const {
  *          "ingredients": [
  *              {
  *                  "name": "almond milk"
+ *              },
+ *              {
+ *                  "name": "dry black beans"
  *              }
  *          ]
  *      }
@@ -96,6 +100,43 @@ router.get("/", (req, res) => {
  *     }
  */
 
+/**
+ * @api {get} ingredients/quantities Get All Avaliable Quantites
+ * @apiName Get quantites
+ * @apiGroup Ingredients
+ *
+ * @apiSuccessExample Success-Response:
+ *    HTTP/1.1 200 OK
+ *      {
+ *        "mealtypes": [
+ *          {
+ *            "id": 1,
+ *            "type": "breakfast"
+ *          },
+ *          {
+ *            "id": 2,
+ *            "type": "lunch"
+ *          },
+ *          {
+ *            "id": 3,
+ *            "type": "dinner"
+ *          },
+ *          {
+ *            "id": 4,
+ *            "type": "appetizer"
+ *          },
+ *          {
+ *            "id": 5,
+ *            "type": "brunch"
+ *          },
+ *          {
+ *            "id": 6,
+ *            "type": "dessert"
+ *          }
+ *        ]
+ *      }
+ */
+
 router.get("/quantities", (req, res) => {
   getQuantityType().then(types =>
     res
@@ -103,6 +144,10 @@ router.get("/quantities", (req, res) => {
       .json({ types })
       .catch(err => res.status(500).json({ error: err }))
   );
+});
+
+router.get("/meal-types", (req, res) => {
+  getAllMealTypes().then(mealtypes => res.status(200).json({ mealtypes }));
 });
 
 router.post("/", (req, res) => {

@@ -4,7 +4,8 @@ module.exports = {
   getAllIngredients,
   addIngredient,
   getQuantityType,
-  addIngredientToRecipe
+  addIngredientToRecipe,
+  getAllMealTypes,
 };
 
 function getAllIngredients() {
@@ -29,4 +30,8 @@ function addIngredientToRecipe(ingredient) {
         } 
     */
   return db("recipe_ingredients").insert(ingredient, "id");
+}
+
+function getAllMealTypes() {
+  return db("meal_types");
 }
