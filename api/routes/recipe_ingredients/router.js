@@ -40,6 +40,13 @@ router.put("/:recipe_id/ingredients/:ingredient_id", (req, res) => {
 });
 
 // delete recipe ingredient
+router.delete("/:recipe_id/ingredients/:recipe_ingredient_id", (req, res) => {
+  const { recipe_id, recipe_ingredient_id } = req.params;
+
+  deleteRecipeIngredients(recipe_id, recipe_ingredient_id)
+    .then(currentRecipes => res.status(200).json({ currentRecipes }))
+    .catch(err => res.status(500).json({ error: err.message }));
+});
 
 // get recipe ingredients
 router.get("/:recipe_id/ingredients", (req, res) => {
