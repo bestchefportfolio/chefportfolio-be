@@ -13,6 +13,8 @@ const {
 } = require("./model.js");
 const { generateToken } = require("../../helpers/config/generateToken.js");
 
+const validateUniqueUsername = require("./middleware/validateUniqueUsername.js");
+
 // todo -- create error messages for register
 /**
  * @api {post} register Register
@@ -33,7 +35,7 @@ const { generateToken } = require("../../helpers/config/generateToken.js");
  *      "message": "Thanks for joining the club!"
  *    }
  */
-router.post("/register", (req, res) => {
+router.post("/register", validateUniqueUsername, (req, res) => {
   let newUser = req.body;
   newUser.password = bcrypt.hashSync(newUser.password, 10);
   add(newUser)
@@ -183,7 +185,7 @@ router.put("/user/:user_id/update", (req, res) => {
  *      {
  *        "success": "successfully deleted user"
  *      }
- */ 
+ */
 
 router.delete("/user/:user_id/delete", (req, res) => {
   deleteUser(req.params.user_id, req.body)
