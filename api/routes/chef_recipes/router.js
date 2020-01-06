@@ -10,6 +10,8 @@ const {
   getChefRecipesDetails
 } = require("./model");
 
+const validateChefId = require('../global-middleware/validateChefId.js')
+
 /**
  * @api {post} chef/:chef_id/recipes Add a Recipe
  * @apiName Add a Recipe
@@ -38,7 +40,7 @@ const {
  *    ]
 }
  */
-router.post("/:chef_id/recipes", (req, res) => {
+router.post("/:chef_id/recipes", validateChefId, (req, res) => {
   const chefID = req.params.chef_id;
   getChefById(chefID).then(chef => {
     addRecipe(chefID, req.body)
