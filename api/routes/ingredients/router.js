@@ -101,8 +101,8 @@ router.get("/", (req, res) => {
  */
 
 /**
- * @api {get} ingredients/quantities Get All Avaliable Quantites
- * @apiName Get quantites
+ * @api {get} ingredients/meal-types Get All Avaliable Meal Types
+ * @apiName Get meal types
  * @apiGroup Ingredients
  *
  * @apiSuccessExample Success-Response:
