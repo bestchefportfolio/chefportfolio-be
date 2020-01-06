@@ -1,7 +1,16 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 
-const { add, getBy, addChef } = require("./model.js");
+const {
+  add,
+  getBy,
+  addChef,
+  editUser,
+  deleteUser,
+  editChef,
+  deleteChef,
+  getAllUsernames
+} = require("./model.js");
 const { generateToken } = require("../../helpers/config/generateToken.js");
 
 // todo -- create error messages for register
@@ -125,6 +134,36 @@ router.post("/login", (req, res) => {
       }
     })
     .catch(err => res.status(500).json({ error: err }));
+});
+
+router.put("/user/:user_id/update", (req, res) => {
+  editUser(req.params.user_id, req.body)
+    .then(updatedUser => res.status(200).json({ updatedUser }))
+    .catch(err => res.status(500).json({ error: err.message }));
+});
+
+router.delete("/user/:user_id/delete", (req, res) => {
+  deleteUser(req.params.user_id, req.body)
+    .then(() => res.status(200).json({ success: "successfully deleted user" }))
+    .catch(err => res.status(500).json({ error: err.message }, err));
+});
+
+router.put("/chef/:chef_id/update", (req, res) => {
+  editChef(req.params.chef_id, req.body)
+    .then(updatedChef => res.status(200).json({ updatedChef }))
+    .catch(err => res.status(500).json({ error: err.message }));
+});
+
+router.delete("/chef/:chef_id/delete", (req, res) => {
+  deleteChef(req.params.chef_id, req.body)
+    .then(() => res.status(200).json({ success: "successfully deleted chef" }))
+    .catch(err => res.status(500).json({ error: err.message }));
+});
+
+router.get("/allusernames", (req, res) => {
+  getAllUsernames()
+    .then(users => res.status(200).json({ users }))
+    .catch(err => res.status(500).json({ error: err.message }));
 });
 
 module.exports = router;
