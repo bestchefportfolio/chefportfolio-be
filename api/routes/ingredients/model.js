@@ -6,7 +6,6 @@ module.exports = {
   getQuantityType,
   addIngredientToRecipe,
   getAllMealTypes,
-  addMealType
 };
 
 function getAllIngredients() {
