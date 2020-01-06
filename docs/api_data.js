@@ -529,15 +529,15 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "ingredients/quantities",
-    "title": "Get All Avaliable Quantites",
-    "name": "Get_quantites",
+    "url": "ingredients/meal-types",
+    "title": "Get All Avaliable Meal Types",
+    "name": "Get_meal_types",
     "group": "Ingredients",
     "success": {
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n  {\n   \"types\": [\n     {\n       \"id\": 1,\n       \"type_of_measurement\": \"weight\",\n       \"unit\": \"pound\",\n       \"abbreviation\": \"lb.\"\n     },\n     {\n       \"id\": 2,\n       \"type_of_measurement\": \"weight\",\n       \"unit\": \"ounce\",\n       \"abbreviation\": \"oz.\"\n     },\n     {\n       \"id\": 3,\n       \"type_of_measurement\": \"volume\",\n       \"unit\": \"gallon\",\n       \"abbreviation\": \"gal.\"\n     },\n     {\n       \"id\": 4,\n       \"type_of_measurement\": \"volume\",\n       \"unit\": \"quart\",\n       \"abbreviation\": \"qt.\"\n     },\n     {\n       \"id\": 5,\n       \"type_of_measurement\": \"volume\",\n       \"unit\": \"pint\",\n       \"abbreviation\": \"pt.\"\n     },\n     {\n       \"id\": 6,\n       \"type_of_measurement\": \"volume\",\n       \"unit\": \"cup\",\n       \"abbreviation\": \"c.\"\n     },\n     {\n       \"id\": 7,\n       \"type_of_measurement\": \"volume\",\n       \"unit\": \"fluid ounce\",\n       \"abbreviation\": \"fl. oz.\"\n     },\n     {\n       \"id\": 8,\n       \"type_of_measurement\": \"volume\",\n       \"unit\": \"tablespoon\",\n       \"abbreviation\": \"tbsp.\"\n     },\n     {\n       \"id\": 9,\n       \"type_of_measurement\": \"volume\",\n       \"unit\": \"teaspoon\",\n       \"abbreviation\": \"tsp\"\n     }\n   ]\n }",
+          "content": "HTTP/1.1 200 OK\n  {\n    \"mealtypes\": [\n      {\n        \"id\": 1,\n        \"type\": \"breakfast\"\n      },\n      {\n        \"id\": 2,\n        \"type\": \"lunch\"\n      },\n      {\n        \"id\": 3,\n        \"type\": \"dinner\"\n      },\n      {\n        \"id\": 4,\n        \"type\": \"appetizer\"\n      },\n      {\n        \"id\": 5,\n        \"type\": \"brunch\"\n      },\n      {\n        \"id\": 6,\n        \"type\": \"dessert\"\n      }\n    ]\n  }",
           "type": "json"
         }
       ]
@@ -556,7 +556,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n  {\n    \"mealtypes\": [\n      {\n        \"id\": 1,\n        \"type\": \"breakfast\"\n      },\n      {\n        \"id\": 2,\n        \"type\": \"lunch\"\n      },\n      {\n        \"id\": 3,\n        \"type\": \"dinner\"\n      },\n      {\n        \"id\": 4,\n        \"type\": \"appetizer\"\n      },\n      {\n        \"id\": 5,\n        \"type\": \"brunch\"\n      },\n      {\n        \"id\": 6,\n        \"type\": \"dessert\"\n      }\n    ]\n  }",
+          "content": "HTTP/1.1 200 OK\n  {\n   \"types\": [\n     {\n       \"id\": 1,\n       \"type_of_measurement\": \"weight\",\n       \"unit\": \"pound\",\n       \"abbreviation\": \"lb.\"\n     },\n     {\n       \"id\": 2,\n       \"type_of_measurement\": \"weight\",\n       \"unit\": \"ounce\",\n       \"abbreviation\": \"oz.\"\n     },\n     {\n       \"id\": 3,\n       \"type_of_measurement\": \"volume\",\n       \"unit\": \"gallon\",\n       \"abbreviation\": \"gal.\"\n     },\n     {\n       \"id\": 4,\n       \"type_of_measurement\": \"volume\",\n       \"unit\": \"quart\",\n       \"abbreviation\": \"qt.\"\n     },\n     {\n       \"id\": 5,\n       \"type_of_measurement\": \"volume\",\n       \"unit\": \"pint\",\n       \"abbreviation\": \"pt.\"\n     },\n     {\n       \"id\": 6,\n       \"type_of_measurement\": \"volume\",\n       \"unit\": \"cup\",\n       \"abbreviation\": \"c.\"\n     },\n     {\n       \"id\": 7,\n       \"type_of_measurement\": \"volume\",\n       \"unit\": \"fluid ounce\",\n       \"abbreviation\": \"fl. oz.\"\n     },\n     {\n       \"id\": 8,\n       \"type_of_measurement\": \"volume\",\n       \"unit\": \"tablespoon\",\n       \"abbreviation\": \"tbsp.\"\n     },\n     {\n       \"id\": 9,\n       \"type_of_measurement\": \"volume\",\n       \"unit\": \"teaspoon\",\n       \"abbreviation\": \"tsp\"\n     }\n   ]\n }",
           "type": "json"
         }
       ]
