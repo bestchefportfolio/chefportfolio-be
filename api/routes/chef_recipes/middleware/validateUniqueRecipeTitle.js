@@ -1,4 +1,4 @@
-const getByRecipeDetail = require('../model.js')
+const { getByRecipeDetail } = require("../model.js");
 
 module.exports = function validateUniqueRecipeTitle(req, res, next) {
   const { title } = req.body;

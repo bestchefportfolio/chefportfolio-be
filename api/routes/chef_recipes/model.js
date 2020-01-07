@@ -81,7 +81,6 @@ async function getChefRecipesDetails(chefID) {
 }
 
 function getByRecipeDetail(detail) {
-  console.log("detail: ", detail);
-  return db("recipes").where({detail});
-};
-
+  console.log("detail: ", detail)
+  return db('recipes').where(detail)
+}
