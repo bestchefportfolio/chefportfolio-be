@@ -10,7 +10,8 @@ const {
   getChefRecipesDetails
 } = require("./model");
 
-const validateChefId = require('../global-middleware/validateChefId.js')
+const validateChefId = require("../global-middleware/validateChefId.js");
+const validateUniqueRecipeTitle = require("./middleware/validateUniqueRecipeTitle.js");
 
 /**
  * @api {post} chef/:chef_id/recipes Add a Recipe
@@ -40,20 +41,24 @@ const validateChefId = require('../global-middleware/validateChefId.js')
  *    ]
 }
  */
-router.post("/:chef_id/recipes", validateChefId, (req, res) => {
-  const chefID = req.params.chef_id;
-  getChefById(chefID).then(chef => {
-    addRecipe(chefID, req.body)
-      .then(recipes => {
-        const response = {
-          chef: chef[0],
-          recipes
-        };
-        res.status(201).json(response);
-      })
-      .catch(err => res.status(500).json({ error: err.message }));
-  });
-});
+router.post(
+  "/:chef_id/recipes",
+  validateChefId,
+  (req, res) => {
+    const chefID = req.params.chef_id;
+    getChefById(chefID).then(chef => {
+      addRecipe(chefID, req.body)
+        .then(recipes => {
+          const response = {
+            chef: chef[0],
+            recipes
+          };
+          res.status(201).json(response);
+        })
+        .catch(err => res.status(500).json({ error: err.message }));
+    });
+  }
+);
 
 /**
  * @api {get} chef/:chef_id/recipes Get Chef's Recipe
