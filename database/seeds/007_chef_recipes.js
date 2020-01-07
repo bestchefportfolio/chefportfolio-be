@@ -7,7 +7,9 @@ exports.seed = function(knex) {
       return knex("chef_recipes").insert([
         { id: 1, recipe_id: 1, chef_id: 1 },
         { id: 2, recipe_id: 2, chef_id: 1 },
-        { id: 3, recipe_id: 3, chef_id: 1 }
+        { id: 3, recipe_id: 3, chef_id: 1 },
+        { recipe_id: 4, chef_id: 2 },
+        { recipe_id: 5, chef_id: 2 }
       ]);
     });
 };
