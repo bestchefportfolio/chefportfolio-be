@@ -1,5 +1,7 @@
 const router = require("express").Router();
 
+const validateToken = require('../global-middleware/authtoken.js')
+
 const {
   getAllIngredients,
   addIngredient,
@@ -27,7 +29,7 @@ const {
  *      }
  */
 
-router.get("/", (req, res) => {
+router.get("/", validateToken, (req, res) => {
   getAllIngredients()
     .then(ingredients => res.status(200).json({ ingredients }))
     .catch(err => res.status(500).json({ error: err }));
@@ -137,7 +139,7 @@ router.get("/", (req, res) => {
  *      }
  */
 
-router.get("/quantities", (req, res) => {
+router.get("/quantities", validateToken, (req, res) => {
   getQuantityType().then(types =>
     res
       .status(200)
@@ -146,11 +148,11 @@ router.get("/quantities", (req, res) => {
   );
 });
 
-router.get("/meal-types", (req, res) => {
+router.get("/meal-types", validateToken, (req, res) => {
   getAllMealTypes().then(mealtypes => res.status(200).json({ mealtypes }));
 });
 
-router.post("/", (req, res) => {
+router.post("/",validateToken, (req, res) => {
   addIngredient(req.body)
     .then(newIngredient => res.status(200).json({ newIngredient }))
     .catch(err => res.status(500).json({ error: err }));
