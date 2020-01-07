@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const validateToken = require('../global-middleware/authtoken.js')
+const validateToken = require("../global-middleware/authtoken.js");
 
 const {
   addRecipeIngredient,
@@ -9,11 +9,13 @@ const {
   getRecipeIngredients
 } = require("./model.js");
 
+const validateIngredient = require("../ingredients/middleware/validateIngredient.js");
+
 /**
  * @api {post} recipes/:recipe_id/ingredients/ Add an Ingredient to a recipe
  * @apiName Add Recipe Ingredient
  * @apiGroup Recipes
- *
+ * 
  * @apiParam {Number} recipe_id **Required** | url param to distinguish which recipe
  * @apiParam {Number} ingredient_id **Required** | body param to distinguish which ingredient
  * @apiParam {Number} quantity_id **Required** | body param to tell which quantity unit to use
@@ -57,24 +59,29 @@ const {
  *      }
  */
 
-router.post("/:recipe_id/ingredients/", validateToken, (req, res) => {
-  /*
+router.post(
+  "/:recipe_id/ingredients/",
+  validateToken,
+  validateToken,
+  (req, res) => {
+    /*
     add a middleware where 
       - validate recipe_id
       - validate ingredient_id here before it goes to model
       - if ingredient does not exist yet add to database --
       - all parts of body are present: { recipe_id, ingredient_id, quantity_id, quantity_value }
   */
-  const ingredient = {
-    recipe_id: Number(req.params.recipe_id),
-    ingredient_id: req.body.ingredient_id,
-    quantity_id: req.body.quantity_id,
-    quantity_value: req.body.quantity_value
-  };
-  addRecipeIngredient(ingredient)
-    .then(recipe_ingredients => res.status(200).json({ recipe_ingredients }))
-    .catch(err => res.status(500).json({ error: err.message }));
-});
+    const ingredient = {
+      recipe_id: Number(req.params.recipe_id),
+      ingredient_id: req.body.ingredient_id,
+      quantity_id: req.body.quantity_id,
+      quantity_value: req.body.quantity_value
+    };
+    addRecipeIngredient(ingredient)
+      .then(recipe_ingredients => res.status(200).json({ recipe_ingredients }))
+      .catch(err => res.status(500).json({ error: err.message }));
+  }
+);
 
 /**
  * @api {put} recipes/:recipe_id/ingredients/:ingredient_id Edit an Ingredient from a recipe
@@ -110,19 +117,23 @@ router.post("/:recipe_id/ingredients/", validateToken, (req, res) => {
  *      }
  */
 
-router.put("/:recipe_id/ingredients/:ingredient_id", validateToken, (req, res) => {
-  const { recipe_id, ingredient_id } = req.params;
-  const updates = req.body;
+router.put(
+  "/:recipe_id/ingredients/:ingredient_id",
+  validateToken,
+  (req, res) => {
+    const { recipe_id, ingredient_id } = req.params;
+    const updates = req.body;
 
-  getRecipeIngredients(recipe_id)
-    .then(list => {
-      list.ingredients.filter(ing => ing.ingredient_id == ingredient_id);
-      editRecipeIngredients(recipe_id, ingredient_id, updates).then(updated =>
-        res.status(200).json({ updated })
-      );
-    })
-    .catch(err => res.status(500).json({ error: err.message }));
-});
+    getRecipeIngredients(recipe_id)
+      .then(list => {
+        list.ingredients.filter(ing => ing.ingredient_id == ingredient_id);
+        editRecipeIngredients(recipe_id, ingredient_id, updates).then(updated =>
+          res.status(200).json({ updated })
+        );
+      })
+      .catch(err => res.status(500).json({ error: err.message }));
+  }
+);
 
 /**
  * @api {delete} recipes/:recipe_id/ingredients/:recipe_ingredient_id Delete an Ingredient from a recipe
@@ -163,13 +174,17 @@ router.put("/:recipe_id/ingredients/:ingredient_id", validateToken, (req, res) =
  *     }
  */
 
-router.delete("/:recipe_id/ingredients/:recipe_ingredient_id", validateToken, (req, res) => {
-  const { recipe_id, recipe_ingredient_id } = req.params;
+router.delete(
+  "/:recipe_id/ingredients/:recipe_ingredient_id",
+  validateToken,
+  (req, res) => {
+    const { recipe_id, recipe_ingredient_id } = req.params;
 
-  deleteRecipeIngredients(recipe_id, recipe_ingredient_id)
-    .then(currentRecipes => res.status(200).json({ currentRecipes }))
-    .catch(err => res.status(500).json({ error: err.message }));
-});
+    deleteRecipeIngredients(recipe_id, recipe_ingredient_id)
+      .then(currentRecipes => res.status(200).json({ currentRecipes }))
+      .catch(err => res.status(500).json({ error: err.message }));
+  }
+);
 
 /**
  * @api {get} recipes/:recipe_id/ingredients Gets all ingredients for a recipe
