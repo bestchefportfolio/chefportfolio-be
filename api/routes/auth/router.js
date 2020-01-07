@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
+const { generateToken } = require("../../helpers/config/generateToken.js");
 
 const {
   add,
@@ -9,13 +10,13 @@ const {
   deleteUser,
   editChef,
   deleteChef,
-  getAllUsernames
+  getAllUsernames,
+  getByUserDetail
 } = require("./model.js");
-const { generateToken } = require("../../helpers/config/generateToken.js");
 
 const validateUniqueUserDetail = require("./middleware/validateUniqueUserDetail.js");
 const validateUniqueChefDetail = require("./middleware/validateUniqueChefDetail.js");
-const validateUserID = require('./middleware/validateUserID.js')
+const validateUserID = require("./middleware/validateUserID.js");
 
 // todo -- create error messages for register
 /**
@@ -129,9 +130,11 @@ router.post(
  */
 
 router.post("/login", (req, res) => {
-  const { username, password } = req.body;
+  let { username, password } = req.body;
+  // console.log("username: ", username, `\n password: `, password);
 
-  getBy({ username })
+  getByUserDetail({ username })
+    .first()
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user);
@@ -142,7 +145,7 @@ router.post("/login", (req, res) => {
         return res.status(401).json({ message: "invalid" });
       }
     })
-    .catch(err => res.status(500).json({ error: err }));
+    .catch(err => res.status(500).json({ error: err.message }));
 });
 
 /**
