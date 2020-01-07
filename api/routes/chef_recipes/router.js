@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const validateToken = require("../global-middleware/authtoken.js");
 
 const {
   addRecipe,
@@ -43,6 +44,7 @@ const validateUniqueRecipeTitle = require("./middleware/validateUniqueRecipeTitl
  */
 router.post(
   "/:chef_id/recipes",
+  validateToken,
   validateChefId,
   validateUniqueRecipeTitle,
   (req, res) => {
@@ -123,7 +125,7 @@ router.get("/:chef_id/recipes", (req, res) => {
  *      "images": null
  *    }
  */
-router.put("/:chef_id/recipes/:recipe_id", (req, res) => {
+router.put("/:chef_id/recipes/:recipe_id", validateToken, (req, res) => {
   const { recipe_id } = req.params;
   const updates = req.body;
   editRecipe(recipe_id, updates)
@@ -144,7 +146,7 @@ router.put("/:chef_id/recipes/:recipe_id", (req, res) => {
  *      success: "recipe was deleted"
  *    }
  */
-router.delete("/:chef_id/recipes/:recipe_id", (req, res) => {
+router.delete("/:chef_id/recipes/:recipe_id", validateToken, (req, res) => {
   const { recipe_id } = req.params;
   deleteRecipe(recipe_id)
     .then(() => res.status(200).json({ success: "recipe was deleted" }))

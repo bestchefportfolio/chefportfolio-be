@@ -1,5 +1,7 @@
 const router = require("express").Router();
 
+const validateToken = require('../global-middleware/authtoken.js')
+
 const {
   addRecipeIngredient,
   editRecipeIngredients,
@@ -55,7 +57,7 @@ const {
  *      }
  */
 
-router.post("/:recipe_id/ingredients/", (req, res) => {
+router.post("/:recipe_id/ingredients/", validateToken, (req, res) => {
   /*
     add a middleware where 
       - validate recipe_id
@@ -108,7 +110,7 @@ router.post("/:recipe_id/ingredients/", (req, res) => {
  *      }
  */
 
-router.put("/:recipe_id/ingredients/:ingredient_id", (req, res) => {
+router.put("/:recipe_id/ingredients/:ingredient_id", validateToken, (req, res) => {
   const { recipe_id, ingredient_id } = req.params;
   const updates = req.body;
 
@@ -161,7 +163,7 @@ router.put("/:recipe_id/ingredients/:ingredient_id", (req, res) => {
  *     }
  */
 
-router.delete("/:recipe_id/ingredients/:recipe_ingredient_id", (req, res) => {
+router.delete("/:recipe_id/ingredients/:recipe_ingredient_id", validateToken, (req, res) => {
   const { recipe_id, recipe_ingredient_id } = req.params;
 
   deleteRecipeIngredients(recipe_id, recipe_ingredient_id)
