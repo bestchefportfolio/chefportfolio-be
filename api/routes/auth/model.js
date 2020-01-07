@@ -10,7 +10,7 @@ module.exports = {
   deleteChef,
   getAllUsernames,
   getByUserDetail,
-  getByChefDetail,
+  getByChefDetail
 };
 
 function add(user) {
@@ -18,6 +18,7 @@ function add(user) {
 }
 
 function getBy(user) {
+  console.log("user: ", user);
   return db("users")
     .select("u.username")
     .where(user)
@@ -25,6 +26,7 @@ function getBy(user) {
 }
 
 function getByUserDetail(detail) {
+  console.log(detail)
   return db("users").where(detail);
 }
 
