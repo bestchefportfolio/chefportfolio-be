@@ -95,10 +95,13 @@ router.post(
  */
 
 router.get("/:chef_id/recipes", (req, res) => {
-  console.log(req.params.chef_id);
-  getChefRecipes(req.params.chef_id)
-    .then(chefRecipes => res.status(200).json({ chefRecipes }))
-    .catch(err => res.status(500).json({ error: err.message }));
+  getChefById(req.params.chef_id).then(chef => {
+    getChefRecipes(req.params.chef_id)
+      .then(chefRecipes => {
+        res.status(200).json({ chef, chefRecipes });
+      })
+      .catch(err => res.status(500).json({ error: err.message }));
+  });
 });
 
 /**
