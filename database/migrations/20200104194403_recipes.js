@@ -7,7 +7,7 @@ exports.up = function(knex) {
       .notNullable();
     tbl.integer("servings").notNullable();
     tbl.text("instructions").notNullable();
-    tbl.text('images').defaultTo('https://source.unsplash.com/collection/239835/500x500')
+    tbl.text('images').defaultTo('https://source.unsplash.com/collection/239835/700x500')
   });
 };
 

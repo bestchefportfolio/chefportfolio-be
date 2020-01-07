@@ -9,8 +9,11 @@ exports.seed = function(knex) {
       return knex("users").insert([
         {
           id: 1,
-          username: "test1",
-          password: `${bcrypt.hashSync("password1234", 10)}`
+          username: "blubsbunny",
+          password: `${bcrypt.hashSync("password1234", 10)}`,
+          email: "blubsbunny@gmail.com",
+          name: "Brianna Keune",
+          is_chef: 1
         },
         {
           id: 2,
@@ -22,7 +25,8 @@ exports.seed = function(knex) {
           username: "misunderstoodchef86",
           password: `${bcrypt.hashSync("password1234", 10)}`,
           email: "sharpknives@gmail.com",
-          name: "Gordon Ramsy"
+          name: "Gordon Ramsy",
+          is_chef: 1
         }
       ]);
     });
