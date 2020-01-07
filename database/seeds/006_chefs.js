@@ -8,9 +8,9 @@ exports.seed = function(knex) {
         {
           id: 1,
           user_id: 3,
-          location: "wisconsin",
+          location: "England",
           phone_number: "867-530-9999",
-          business_name: "Hamburger Mary's"
+          business_name: "Lucky Cat"
         }
       ]);
     });
