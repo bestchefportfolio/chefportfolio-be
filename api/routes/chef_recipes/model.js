@@ -7,7 +7,8 @@ module.exports = {
   getRecipeById,
   getChefById,
   getChefRecipes,
-  getChefRecipesDetails
+  getChefRecipesDetails,
+  getByRecipeDetail
 };
 
 async function addRecipe(chefID, recipe) {
@@ -77,4 +78,9 @@ async function getChefRecipesDetails(chefID) {
   };
 
   console.log(recipeDetails);
+}
+
+function getByRecipeDetail(detail) {
+  console.log("detail: ", detail)
+  return db('recipes').where(detail)
 }
