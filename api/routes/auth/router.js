@@ -17,6 +17,7 @@ const {
 const validateUniqueUserDetail = require("./middleware/validateUniqueUserDetail.js");
 const validateUniqueChefDetail = require("./middleware/validateUniqueChefDetail.js");
 const validateUserID = require("./middleware/validateUserID.js");
+const validateToken = require("../global-middleware/authtoken.js");
 
 // todo -- create error messages for register
 /**
@@ -172,21 +173,23 @@ router.post("/login", (req, res) => {
  *     }
  */
 
-router.put("/user/:user_id/update", (req, res) => {
-  editUser(req.params.user_id, req.body)
-    .then(updatedUser => res.status(200).json({ updatedUser }))
-    .catch(err => res.status(500).json({ error: err.message }));
-});
+router.put(
+  "/user/:user_id/update",
+  validateToken,
+  validateUniqueUserDetail,
+  (req, res) => {
+    editUser(req.params.user_id, req.body)
+      .then(updatedUser => res.status(200).json({ updatedUser }))
+      .catch(err => res.status(500).json({ error: err.message }));
+  }
+);
 
 /**
- * @api {put} user/:user_id/update Update User Info
- * @apiName Update User
+ * @api {delete} user/:user_id/update Delete User Info
+ * @apiName Delete User
  * @apiGroup Auth
  *
- * @apiParam {String} username **Required** | *Unique* | Username for the User.
- * @apiParam {String} password **Required** | Password of the User.
- * @apiParam {String} email *Unique* | Email of the User.
- * @apiParam {String} name Name of User.
+ * @apiParam {Number} user_id **Required** | *Unique* | Id of User.
  *
  * @apiSuccess {String} success sucessfully deleted user
  *
@@ -197,26 +200,35 @@ router.put("/user/:user_id/update", (req, res) => {
  *      }
  */
 
-router.delete("/user/:user_id/delete", validateUserID, (req, res) => {
-  deleteUser(req.params.user_id, req.body)
-    .then(() => res.status(200).json({ success: "successfully deleted user" }))
-    .catch(err => res.status(500).json({ error: err.message }, err));
-});
+router.delete(
+  "/user/:user_id/delete",
+  validateToken,
+  validateUserID,
+  (req, res) => {
+    deleteUser(req.params.user_id, req.body)
+      .then(() =>
+        res.status(200).json({ success: "successfully deleted user" })
+      )
+      .catch(err => res.status(500).json({ error: err.message }, err));
+  }
+);
 
-router.put("/chef/:chef_id/update", (req, res) => {
-  editChef(req.params.chef_id, req.body)
-    .then(updatedChef => res.status(200).json({ updatedChef }))
-    .catch(err => res.status(500).json({ error: err.message }));
-});
+// if I get to it adding these would be awesome!!!
 
-router.delete("/chef/:chef_id/delete", (req, res) => {
-  deleteChef(req.params.chef_id, req.body)
-    .then(() => res.status(200).json({ success: "successfully deleted chef" }))
-    .catch(err => res.status(500).json({ error: err.message }));
-});
+// router.put("/chef/:chef_id/update", (req, res) => {
+//   editChef(req.params.chef_id, req.body)
+//     .then(updatedChef => res.status(200).json({ updatedChef }))
+//     .catch(err => res.status(500).json({ error: err.message }));
+// });
+
+// router.delete("/chef/:chef_id/delete", (req, res) => {
+//   deleteChef(req.params.chef_id, req.body)
+//     .then(() => res.status(200).json({ success: "successfully deleted chef" }))
+//     .catch(err => res.status(500).json({ error: err.message }));
+// });
 
 /**
- * @api {get} allusernames Get All Users by username and name
+ * @api {get} allusernames Get All Users
  * @apiName Users
  * @apiGroup Users/Chefs
  *

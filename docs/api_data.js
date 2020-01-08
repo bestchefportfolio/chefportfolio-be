@@ -1,5 +1,48 @@
 define({ "api": [
   {
+    "type": "delete",
+    "url": "user/:user_id/update",
+    "title": "Delete User Info",
+    "name": "Delete_User",
+    "group": "Auth",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "user_id",
+            "description": "<p><strong>Required</strong> | <em>Unique</em> | Id of User.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "success",
+            "description": "<p>sucessfully deleted user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n  {\n    \"success\": \"successfully deleted user\"\n  }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "api/routes/auth/router.js",
+    "groupTitle": "Auth"
+  },
+  {
     "type": "post",
     "url": "login",
     "title": "Login",
@@ -297,70 +340,6 @@ define({ "api": [
     "groupTitle": "Auth"
   },
   {
-    "type": "put",
-    "url": "user/:user_id/update",
-    "title": "Update User Info",
-    "name": "Update_User",
-    "group": "Auth",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "username",
-            "description": "<p><strong>Required</strong> | <em>Unique</em> | Username for the User.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "password",
-            "description": "<p><strong>Required</strong> | Password of the User.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "email",
-            "description": "<p><em>Unique</em> | Email of the User.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>Name of User.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "success",
-            "description": "<p>sucessfully deleted user</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n  {\n    \"success\": \"successfully deleted user\"\n  }",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "api/routes/auth/router.js",
-    "groupTitle": "Auth"
-  },
-  {
     "type": "post",
     "url": "chef/:chef_id/recipes",
     "title": "Add a Recipe",
@@ -585,7 +564,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "Number",
             "optional": false,
-            "field": "ingredient_id",
+            "field": "ingredient_name",
             "description": "<p><strong>Required</strong> | body param to distinguish which ingredient</p>"
           },
           {
@@ -783,7 +762,7 @@ define({ "api": [
   {
     "type": "get",
     "url": "allusernames",
-    "title": "Get All Users by username and name",
+    "title": "Get All Users",
     "name": "Users",
     "group": "Users/Chefs",
     "success": {

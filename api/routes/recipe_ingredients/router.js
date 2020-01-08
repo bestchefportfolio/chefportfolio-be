@@ -8,16 +8,17 @@ const {
   deleteRecipeIngredients,
   getRecipeIngredients
 } = require("./model.js");
+const { getIngredientByDetail } = require("../ingredients/model.js");
 
-const validateIngredient = require("../ingredients/middleware/validateIngredient.js");
+const validateIngredientExists = require("../ingredients/middleware/validateIngredient.js");
 
 /**
  * @api {post} recipes/:recipe_id/ingredients/ Add an Ingredient to a recipe
  * @apiName Add Recipe Ingredient
  * @apiGroup Recipes
- * 
+ *
  * @apiParam {Number} recipe_id **Required** | url param to distinguish which recipe
- * @apiParam {Number} ingredient_id **Required** | body param to distinguish which ingredient
+ * @apiParam {Number} ingredient_name **Required** | body param to distinguish which ingredient
  * @apiParam {Number} quantity_id **Required** | body param to tell which quantity unit to use
  * @apiParam {Number} quantity_value **Required** | body param to tell how much of quantity unit to use
  *
@@ -62,24 +63,29 @@ const validateIngredient = require("../ingredients/middleware/validateIngredient
 router.post(
   "/:recipe_id/ingredients/",
   validateToken,
-  validateToken,
+  validateIngredientExists,
   (req, res) => {
     /*
     add a middleware where 
       - validate recipe_id
-      - validate ingredient_id here before it goes to model
+      - validate ingredient_name here before it goes to model
       - if ingredient does not exist yet add to database --
       - all parts of body are present: { recipe_id, ingredient_id, quantity_id, quantity_value }
   */
-    const ingredient = {
-      recipe_id: Number(req.params.recipe_id),
-      ingredient_id: req.body.ingredient_id,
-      quantity_id: req.body.quantity_id,
-      quantity_value: req.body.quantity_value
-    };
-    addRecipeIngredient(ingredient)
-      .then(recipe_ingredients => res.status(200).json({ recipe_ingredients }))
-      .catch(err => res.status(500).json({ error: err.message }));
+
+    getIngredientByDetail({ name: req.body.ingredient_name }).then(ing => {
+      const ingredient = {
+        recipe_id: Number(req.params.recipe_id),
+        ingredient_id: ing[0].id,
+        quantity_id: req.body.quantity_id,
+        quantity_value: req.body.quantity_value
+      };
+      addRecipeIngredient(ingredient)
+        .then(recipe_ingredients =>
+          res.status(200).json({ recipe_ingredients })
+        )
+        .catch(err => res.status(500).json({ error: err.message }));
+    });
   }
 );
 
