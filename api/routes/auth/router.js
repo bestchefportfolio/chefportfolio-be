@@ -17,6 +17,7 @@ const {
 const validateUniqueUserDetail = require("./middleware/validateUniqueUserDetail.js");
 const validateUniqueChefDetail = require("./middleware/validateUniqueChefDetail.js");
 const validateUserID = require("./middleware/validateUserID.js");
+const validateToken = require("../global-middleware/authtoken.js");
 
 // todo -- create error messages for register
 /**
@@ -172,11 +173,16 @@ router.post("/login", (req, res) => {
  *     }
  */
 
-router.put("/user/:user_id/update", validateUniqueUserDetail, (req, res) => {
-  editUser(req.params.user_id, req.body)
-    .then(updatedUser => res.status(200).json({ updatedUser }))
-    .catch(err => res.status(500).json({ error: err.message }));
-});
+router.put(
+  "/user/:user_id/update",
+  validateToken,
+  validateUniqueUserDetail,
+  (req, res) => {
+    editUser(req.params.user_id, req.body)
+      .then(updatedUser => res.status(200).json({ updatedUser }))
+      .catch(err => res.status(500).json({ error: err.message }));
+  }
+);
 
 /**
  * @api {delete} user/:user_id/update Delete User Info
@@ -194,11 +200,18 @@ router.put("/user/:user_id/update", validateUniqueUserDetail, (req, res) => {
  *      }
  */
 
-router.delete("/user/:user_id/delete", validateUserID, (req, res) => {
-  deleteUser(req.params.user_id, req.body)
-    .then(() => res.status(200).json({ success: "successfully deleted user" }))
-    .catch(err => res.status(500).json({ error: err.message }, err));
-});
+router.delete(
+  "/user/:user_id/delete",
+  validateToken,
+  validateUserID,
+  (req, res) => {
+    deleteUser(req.params.user_id, req.body)
+      .then(() =>
+        res.status(200).json({ success: "successfully deleted user" })
+      )
+      .catch(err => res.status(500).json({ error: err.message }, err));
+  }
+);
 
 // if I get to it adding these would be awesome!!!
 
