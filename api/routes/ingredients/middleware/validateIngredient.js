@@ -1,10 +1,4 @@
-const {
-  getAllIngredients,
-  addIngredient,
-  getIngredientByDetail
-} = require("../model.js");
-
-const { addRecipeIngredient } = require("../../recipe_ingredients/model.js");
+const { addIngredient, getIngredientByDetail } = require("../model.js");
 
 module.exports = function validateIngredientExists(req, res, next) {
   const { ingredient_name } = req.body;
@@ -28,10 +22,3 @@ module.exports = function validateIngredientExists(req, res, next) {
       })
     );
 };
-
-/**
- * adding an new obj to table {ingredients, quantites, or meal-types}
- * we get the obj by detail
- * if length is zero we add to database
- * return obj with id into the function
- */
