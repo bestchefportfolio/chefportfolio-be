@@ -74,14 +74,12 @@ router.post(
   */
 
     getIngredientByDetail({ name: req.body.ingredient_name }).then(ing => {
-      console.log("ing: ", ing);
       const ingredient = {
         recipe_id: Number(req.params.recipe_id),
         ingredient_id: ing[0].id,
         quantity_id: req.body.quantity_id,
         quantity_value: req.body.quantity_value
       };
-      console.log("ingredient: ", ingredient);
       addRecipeIngredient(ingredient)
         .then(recipe_ingredients =>
           res.status(200).json({ recipe_ingredients })
