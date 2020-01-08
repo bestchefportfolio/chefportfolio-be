@@ -179,14 +179,11 @@ router.put("/user/:user_id/update", validateUniqueUserDetail, (req, res) => {
 });
 
 /**
- * @api {put} user/:user_id/update Update User Info
- * @apiName Update User
+ * @api {delete} user/:user_id/update Delete User Info
+ * @apiName Delete User
  * @apiGroup Auth
  *
- * @apiParam {String} username **Required** | *Unique* | Username for the User.
- * @apiParam {String} password **Required** | Password of the User.
- * @apiParam {String} email *Unique* | Email of the User.
- * @apiParam {String} name Name of User.
+ * @apiParam {Number} user_id **Required** | *Unique* | Id of User.
  *
  * @apiSuccess {String} success sucessfully deleted user
  *
@@ -203,17 +200,19 @@ router.delete("/user/:user_id/delete", validateUserID, (req, res) => {
     .catch(err => res.status(500).json({ error: err.message }, err));
 });
 
-router.put("/chef/:chef_id/update", (req, res) => {
-  editChef(req.params.chef_id, req.body)
-    .then(updatedChef => res.status(200).json({ updatedChef }))
-    .catch(err => res.status(500).json({ error: err.message }));
-});
+// if I get to it adding these would be awesome!!!
 
-router.delete("/chef/:chef_id/delete", (req, res) => {
-  deleteChef(req.params.chef_id, req.body)
-    .then(() => res.status(200).json({ success: "successfully deleted chef" }))
-    .catch(err => res.status(500).json({ error: err.message }));
-});
+// router.put("/chef/:chef_id/update", (req, res) => {
+//   editChef(req.params.chef_id, req.body)
+//     .then(updatedChef => res.status(200).json({ updatedChef }))
+//     .catch(err => res.status(500).json({ error: err.message }));
+// });
+
+// router.delete("/chef/:chef_id/delete", (req, res) => {
+//   deleteChef(req.params.chef_id, req.body)
+//     .then(() => res.status(200).json({ success: "successfully deleted chef" }))
+//     .catch(err => res.status(500).json({ error: err.message }));
+// });
 
 /**
  * @api {get} allusernames Get All Users by username and name
