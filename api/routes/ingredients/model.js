@@ -3,9 +3,12 @@ const db = require("../../../database/dbconfig.js");
 module.exports = {
   getAllIngredients,
   addIngredient,
+  getIngredientByDetail,
   getQuantityType,
+  getQuantityByDetail,
   addIngredientToRecipe,
-  getAllMealTypes
+  getAllMealTypes,
+  getMealTypeByDetail
 };
 
 function getAllIngredients() {
@@ -13,6 +16,7 @@ function getAllIngredients() {
 }
 
 function addIngredient(ingredient) {
+  console.log("in add ingredient: ", ingredient)
   return db("ingredients").insert(ingredient, "id");
 }
 
