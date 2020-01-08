@@ -146,11 +146,16 @@ router.put("/:chef_id/recipes/:recipe_id", validateToken, (req, res) => {
  *      success: "recipe was deleted"
  *    }
  */
-router.delete("/:chef_id/recipes/:recipe_id", validateToken, (req, res) => {
-  const { recipe_id } = req.params;
-  deleteRecipe(recipe_id)
-    .then(() => res.status(200).json({ success: "recipe was deleted" }))
-    .catch(err => res.status(500).json(err));
-});
+router.delete(
+  "/:chef_id/recipes/:recipe_id",
+  validateToken,
+  validateChefId,
+  (req, res) => {
+    const { recipe_id } = req.params;
+    deleteRecipe(recipe_id)
+      .then(() => res.status(200).json({ success: "recipe was deleted" }))
+      .catch(err => res.status(500).json(err));
+  }
+);
 
 module.exports = router;
