@@ -172,7 +172,7 @@ router.post("/login", (req, res) => {
  *     }
  */
 
-router.put("/user/:user_id/update", (req, res) => {
+router.put("/user/:user_id/update", validateUniqueUserDetail, (req, res) => {
   editUser(req.params.user_id, req.body)
     .then(updatedUser => res.status(200).json({ updatedUser }))
     .catch(err => res.status(500).json({ error: err.message }));
