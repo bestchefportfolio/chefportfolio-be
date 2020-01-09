@@ -32,7 +32,7 @@ function getByUserDetail(detail) {
 
 function getUserById(id) {
   return db("users as u")
-    .select("u.id", "u.username", "u.email", "u.name")
+    .select("u.id", "u.username", "u.email", "u.name", "u.is_chef")
     .where({ id })
     .first();
 }
