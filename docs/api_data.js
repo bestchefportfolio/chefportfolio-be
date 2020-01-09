@@ -564,7 +564,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "Number",
             "optional": false,
-            "field": "ingredient_id",
+            "field": "ingredient_name",
             "description": "<p><strong>Required</strong> | body param to distinguish which ingredient</p>"
           },
           {
@@ -762,7 +762,7 @@ define({ "api": [
   {
     "type": "get",
     "url": "allusernames",
-    "title": "Get All Users by username and name",
+    "title": "Get All Users",
     "name": "Users",
     "group": "Users/Chefs",
     "success": {

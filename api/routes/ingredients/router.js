@@ -102,6 +102,15 @@ router.get("/", validateToken, (req, res) => {
  *     }
  */
 
+router.get("/quantities", validateToken, (req, res) => {
+  getQuantityType().then(types =>
+    res
+      .status(200)
+      .json({ types })
+      .catch(err => res.status(500).json({ error: err }))
+  );
+});
+
 /**
  * @api {get} ingredients/meal-types Get All Avaliable Meal Types
  * @apiName Get meal types
@@ -138,15 +147,6 @@ router.get("/", validateToken, (req, res) => {
  *        ]
  *      }
  */
-
-router.get("/quantities", validateToken, (req, res) => {
-  getQuantityType().then(types =>
-    res
-      .status(200)
-      .json({ types })
-      .catch(err => res.status(500).json({ error: err }))
-  );
-});
 
 router.get("/meal-types", validateToken, (req, res) => {
   getAllMealTypes().then(mealtypes => res.status(200).json({ mealtypes }));

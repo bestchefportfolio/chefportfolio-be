@@ -228,7 +228,7 @@ router.delete(
 // });
 
 /**
- * @api {get} allusernames Get All Users by username and name
+ * @api {get} allusernames Get All Users
  * @apiName Users
  * @apiGroup Users/Chefs
  *
