@@ -50,6 +50,7 @@ router.post(
   // validateChefId,
   // validateUniqueRecipeTitle,
   (req, res) => {
+    console.log("body: ", req.body)
     const chefID = req.params.chef_id;
     const bodyObj = {
       title: req.body.title,

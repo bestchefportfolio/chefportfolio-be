@@ -139,6 +139,7 @@ router.post("/login", (req, res) => {
   getByUserDetail({ username })
     .first()
     .then(user => {
+      // if (user.is_chef === 1) getByChefDetail({username})
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user);
         return res
