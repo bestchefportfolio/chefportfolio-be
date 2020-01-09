@@ -11,7 +11,9 @@ const {
 const { getIngredientByDetail } = require("../ingredients/model.js");
 
 const validateIngredientExists = require("../ingredients/middleware/validateIngredient.js");
-
+const validateRecipeId = require("./middleware/validateRecipeId.js");
+const validateUniqueIngredientOfRecipe = require("./middleware/validateUniqueIngredientOfRecipe.js");
+const validateAddIngredientRequirements = require("./middleware/validateAddIngredientRequirements.js");
 /**
  * @api {post} recipes/:recipe_id/ingredients/ Add an Ingredient to a recipe
  * @apiName Add Recipe Ingredient
@@ -63,7 +65,10 @@ const validateIngredientExists = require("../ingredients/middleware/validateIngr
 router.post(
   "/:recipe_id/ingredients/",
   validateToken,
+  validateAddIngredientRequirements,
+  validateRecipeId,
   validateIngredientExists,
+  // validateUniqueIngredientOfRecipe,
   (req, res) => {
     /*
     add a middleware where 
@@ -74,6 +79,7 @@ router.post(
   */
 
     getIngredientByDetail({ name: req.body.ingredient_name }).then(ing => {
+      console.log("params", req.params.recipe_id);
       const ingredient = {
         recipe_id: Number(req.params.recipe_id),
         ingredient_id: ing[0].id,
