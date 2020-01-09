@@ -11,6 +11,8 @@ const {
   getChefRecipesDetails
 } = require("./model");
 
+const {getByUserDetail} = require("../auth/model.js")
+
 const validateChefId = require("../global-middleware/validateChefId.js");
 const validateUniqueRecipeTitle = require("./middleware/validateUniqueRecipeTitle.js");
 
@@ -104,7 +106,7 @@ router.post(
  */
 
 router.get("/:chef_id/recipes", (req, res) => {
-  getChefById(req.params.chef_id).then(chef => {
+  getByUserDetail(req.params.chef_id).then(chef => {
     getChefRecipes(req.params.chef_id)
       .then(chefRecipes => {
         res.status(200).json({ chef, chefRecipes });
