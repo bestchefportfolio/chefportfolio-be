@@ -82,7 +82,8 @@ router.post(
   validateUniqueUserDetail,
   // validateUniqueChefDetail,
   (req, res) => {
-    const { password } = req.body.password;
+    let password = req.body.password;
+    console.log('password: ', password)
     password = bcrypt.hashSync(password, 10);
     let newUser = {
       username: req.body.username,
