@@ -45,8 +45,8 @@ const validateUniqueRecipeTitle = require("./middleware/validateUniqueRecipeTitl
 router.post(
   "/:chef_id/recipes",
   validateToken,
-  validateChefId,
-  validateUniqueRecipeTitle,
+  // validateChefId,
+  // validateUniqueRecipeTitle,
   (req, res) => {
     const chefID = req.params.chef_id;
     getChefById(chefID).then(chef => {
