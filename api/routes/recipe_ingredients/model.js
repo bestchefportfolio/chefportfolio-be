@@ -15,6 +15,7 @@ async function addRecipeIngredient(ingredient) {
 }
 
 async function getRecipeIngredients(id) {
+  console.log("id: ", id);
   const recipe = await getRecipeById(id);
   const ingredients = await db("recipe_ingredients as ri")
     .join("recipes as r", "r.id", "ri.recipe_id")
