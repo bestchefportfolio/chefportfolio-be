@@ -5,7 +5,9 @@ module.exports = {
   addRecipeIngredient,
   editRecipeIngredients,
   deleteRecipeIngredients,
-  getRecipeIngredients
+  getRecipeIngredients,
+  getRecipeMealType,
+  addRecipeMealType
 };
 
 async function addRecipeIngredient(ingredient) {
@@ -14,7 +16,14 @@ async function addRecipeIngredient(ingredient) {
   return getRecipeIngredients(id);
 }
 
+async function addRecipeMealType(meal_type) {
+  const id = meal_type.recipe_id;
+  await db("recipe_meal_types").insert(meal_type);
+  return getRecipeMealType(id);
+}
+
 async function getRecipeIngredients(id) {
+  console.log("id: ", id);
   const recipe = await getRecipeById(id);
   const ingredients = await db("recipe_ingredients as ri")
     .join("recipes as r", "r.id", "ri.recipe_id")
@@ -34,6 +43,26 @@ async function getRecipeIngredients(id) {
   };
 
   return recipeIngredients;
+}
+
+async function getRecipeMealType(id) {
+  console.log("id: ", id);
+  const recipe = await getRecipeById(id);
+  const meal_type = await db("recipe_meal_types as rmt")
+    .join("recipes as r", "r.id", "rmt.recipe_id")
+    .join("meal_types as mt", "mt.id", "rmt.meal_type_id")
+    .select(
+      "rmt.id as recipe_meal_type_id",
+      "mt.id as meal_type_id",
+      "mt.type as meal_type"
+    )
+    .where("rmt.recipe_id", id);
+  const recipeMealType = {
+    recipe: recipe,
+    meal_type: meal_type
+  };
+
+  return recipeMealType;
 }
 
 async function editRecipeIngredients(recipe_id, ingredient_id, changes) {

@@ -4,13 +4,22 @@ const validateToken = require("../global-middleware/authtoken.js");
 
 const {
   addRecipeIngredient,
+  addRecipeMealType,
   editRecipeIngredients,
   deleteRecipeIngredients,
-  getRecipeIngredients
+  getRecipeIngredients,
+  getRecipeMealType
 } = require("./model.js");
-const { getIngredientByDetail } = require("../ingredients/model.js");
+const {
+  getIngredientByDetail,
+  getMealTypeByDetail,
+} = require("../ingredients/model.js");
 
 const validateIngredientExists = require("../ingredients/middleware/validateIngredient.js");
+const validateRecipeId = require("./middleware/validateRecipeId.js");
+const validateUniqueIngredientOfRecipe = require("./middleware/validateUniqueIngredientOfRecipe.js");
+const validateAddIngredientRequirements = require("./middleware/validateAddIngredientRequirements.js");
+const validateMealTypeExists = require("../ingredients/middleware/validateMealTypeExists.js");
 
 /**
  * @api {post} recipes/:recipe_id/ingredients/ Add an Ingredient to a recipe
@@ -63,7 +72,10 @@ const validateIngredientExists = require("../ingredients/middleware/validateIngr
 router.post(
   "/:recipe_id/ingredients/",
   validateToken,
+  validateAddIngredientRequirements,
+  validateRecipeId,
   validateIngredientExists,
+  // validateUniqueIngredientOfRecipe,
   (req, res) => {
     /*
     add a middleware where 
@@ -74,6 +86,7 @@ router.post(
   */
 
     getIngredientByDetail({ name: req.body.ingredient_name }).then(ing => {
+      console.log("params", req.params.recipe_id);
       const ingredient = {
         recipe_id: Number(req.params.recipe_id),
         ingredient_id: ing[0].id,
@@ -86,6 +99,38 @@ router.post(
         )
         .catch(err => res.status(500).json({ error: err.message }));
     });
+  }
+);
+
+// add meal-type to recipe
+router.post(
+  "/:recipe_id/meal-types",
+  validateToken,
+  validateRecipeId,
+  // validateAddMealTypeRequirements,
+  validateMealTypeExists,
+  (req, res) => {
+    getMealTypeByDetail({ type: req.body.meal_type_name })
+      .then(mt => {
+        const meal_type = {
+          recipe_id: Number(req.params.recipe_id),
+          meal_type_id: mt[0].id
+        };
+        addRecipeMealType(meal_type)
+          .then(recipe_meal_type => res.status(200).json({ recipe_meal_type }))
+          .catch(err =>
+            res.status(500).json({
+              message: `Sorry. Something went wrong while trying to add ${req.body.meal_type_name} to recipe_id: ${req.params.recipe_id}`,
+              error: err.message
+            })
+          );
+      })
+      .catch(err =>
+        res.status(500).json({
+          message: `Sorry. Something went wrong while trying to get meal by name: ${req.body.meal_type_name}`,
+          error: err.message
+        })
+      );
   }
 );
 
