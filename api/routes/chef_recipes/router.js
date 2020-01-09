@@ -11,7 +11,7 @@ const {
   getChefRecipesDetails
 } = require("./model");
 
-const {getByUserDetail} = require("../auth/model.js")
+const { getByUserDetail } = require("../auth/model.js");
 
 const validateChefId = require("../global-middleware/validateChefId.js");
 const validateUniqueRecipeTitle = require("./middleware/validateUniqueRecipeTitle.js");
@@ -50,7 +50,8 @@ router.post(
   // validateChefId,
   // validateUniqueRecipeTitle,
   (req, res) => {
-    console.log("body: ", req.body)
+    console.log("body: ", req.body);
+    console.log("params", req.params.chef_id);
     const chefID = req.params.chef_id;
     const bodyObj = {
       title: req.body.title,
@@ -68,7 +69,9 @@ router.post(
           };
           res.status(201).json(response);
         })
-        .catch(err => res.status(500).json({ message:'Error in ',error: err.message }));
+        .catch(err =>
+          res.status(500).json({ message: "Error in ", error: err.message })
+        );
     });
   }
 );

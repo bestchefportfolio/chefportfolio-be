@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
+const morgan = require("morgan");
 
 // local imports
 const authRouter = require("./routes/auth/router.js");
@@ -10,9 +11,10 @@ const recipesRouter = require("./routes/recipes/router.js");
 const recipeIngredientsRouter = require("./routes/recipe_ingredients/router.js");
 
 const server = express();
-server.use(cors());
 server.use(helmet());
+server.use(cors());
 server.use(express.json());
+server.use(morgan("dev"));
 
 // routes
 server.use("/docs", express.static("./docs"));
