@@ -8,7 +8,9 @@ module.exports = {
   getQuantityByDetail,
   addIngredientToRecipe,
   getAllMealTypes,
-  getMealTypeByDetail
+  getMealTypeByDetail,
+  addMealType,
+  addIngredientToRecipe
 };
 
 function getAllIngredients() {
@@ -16,7 +18,7 @@ function getAllIngredients() {
 }
 
 function addIngredient(ingredient) {
-  console.log("in add ingredient: ", ingredient)
+  console.log("in add ingredient: ", ingredient);
   return db("ingredients").insert(ingredient, "id");
 }
 
@@ -49,9 +51,13 @@ function getAllMealTypes() {
 }
 
 function addMealType(meal_types) {
-  return db("meal_typess").insert(meal_types, "id");
+  return db("meal_types").insert(meal_types, "id");
 }
 
 function getMealTypeByDetail(detail) {
-  return db("meal-types").where(detail);
+  return db("meal_types").where(detail);
+}
+
+function addRecipeMealType(meal_type) {
+  return db("recipe_meal_types").insert(meal_type, "id");
 }

@@ -4,16 +4,23 @@ const validateToken = require("../global-middleware/authtoken.js");
 
 const {
   addRecipeIngredient,
+  addRecipeMealType,
   editRecipeIngredients,
   deleteRecipeIngredients,
-  getRecipeIngredients
+  getRecipeIngredients,
+  getRecipeMealType
 } = require("./model.js");
-const { getIngredientByDetail } = require("../ingredients/model.js");
+const {
+  getIngredientByDetail,
+  getMealTypeByDetail,
+} = require("../ingredients/model.js");
 
 const validateIngredientExists = require("../ingredients/middleware/validateIngredient.js");
 const validateRecipeId = require("./middleware/validateRecipeId.js");
 const validateUniqueIngredientOfRecipe = require("./middleware/validateUniqueIngredientOfRecipe.js");
 const validateAddIngredientRequirements = require("./middleware/validateAddIngredientRequirements.js");
+const validateMealTypeExists = require("../ingredients/middleware/validateMealTypeExists.js");
+
 /**
  * @api {post} recipes/:recipe_id/ingredients/ Add an Ingredient to a recipe
  * @apiName Add Recipe Ingredient
@@ -101,9 +108,9 @@ router.post(
   validateToken,
   validateRecipeId,
   // validateAddMealTypeRequirements,
-  // validateMealTypeExists,
+  validateMealTypeExists,
   (req, res) => {
-    getMealTypeByDetail({ name: req.body.meal_type_name })
+    getMealTypeByDetail({ type: req.body.meal_type_name })
       .then(mt => {
         const meal_type = {
           recipe_id: Number(req.params.recipe_id),

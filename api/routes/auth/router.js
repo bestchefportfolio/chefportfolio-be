@@ -82,9 +82,11 @@ router.post(
   validateUniqueUserDetail,
   validateUniqueChefDetail,
   (req, res) => {
+    const { password } = req.body.password;
+    password = bcrypt.hashSync(password, 10);
     let newUser = {
       username: req.body.username,
-      password: req.body.password,
+      password: password,
       email: req.body.email,
       name: req.body.name,
       is_chef: 1
