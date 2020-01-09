@@ -11,7 +11,8 @@ const {
   editChef,
   deleteChef,
   getAllUsernames,
-  getByUserDetail
+  getByUserDetail,
+  getByChefDetail
 } = require("./model.js");
 
 const validateUniqueUserDetail = require("./middleware/validateUniqueUserDetail.js");
@@ -139,12 +140,25 @@ router.post("/login", (req, res) => {
   getByUserDetail({ username })
     .first()
     .then(user => {
-      // if (user.is_chef === 1) getByChefDetail({username})
+      console.log("user: ", user);
       if (user && bcrypt.compareSync(password, user.password)) {
+        console.log("user in if: ", user);
         const token = generateToken(user);
-        return res
-          .status(200)
-          .json({ message: `Logged in ${user.username}`, token });
+        if (user.is_chef === 1) {
+          getByChefDetail({ user_id: user.id }).then(chef => {
+            console.log("chef is logged in: ", chef);
+            const chef_id = chef[0].id;
+            return res.status(200).json({
+              message: `Logged in ${user.username} with chef_id: ${chef[0].id}`,
+              token,
+              chef_id
+            });
+          });
+        } else {
+          return res
+            .status(200)
+            .json({ message: `Logged in ${user.username}`, token, user });
+        }
       } else {
         return res.status(401).json({ message: "invalid" });
       }
