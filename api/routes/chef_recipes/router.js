@@ -69,9 +69,10 @@ router.post(
           };
           res.status(201).json(response);
         })
-        .catch(err =>
-          res.status(500).json({ message: "Error in ", error: err.message })
-        );
+        .catch(err => {
+          console.log("err: ", err);
+          res.status(500).json({ message: "Error in ", error: err.message });
+        });
     });
   }
 );
