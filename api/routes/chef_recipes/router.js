@@ -49,8 +49,15 @@ router.post(
   // validateUniqueRecipeTitle,
   (req, res) => {
     const chefID = req.params.chef_id;
+    const bodyObj = {
+      title: req.body.title,
+      servings: Number(req.body.servings),
+      instructions: req.body.instructions,
+      images: req.body.images || null
+    };
+    console.log(bodyObj);
     getChefById(chefID).then(chef => {
-      addRecipe(chefID, req.body)
+      addRecipe(chefID, bodyObj)
         .then(recipes => {
           const response = {
             chef: chef[0],
