@@ -95,6 +95,31 @@ router.post(
   }
 );
 
+// add meal-type to recipe
+router.post("/:recipe_id/meal-types", (req, res) => {
+  getMealTypeByDetail({ name: req.body.meal_type_name })
+    .then(mt => {
+      const meal_type = {
+        recipe_id: Number(req.params.recipe_id),
+        meal_type_id: mt[0].id
+      };
+      addRecipeMealType(meal_type)
+        .then(recipe_meal_type => res.status(200).json({ recipe_meal_type }))
+        .catch(err =>
+          res.status(500).json({
+            message: `Sorry. Something went wrong while trying to add ${req.body.meal_type_name} to recipe_id: ${req.params.recipe_id}`,
+            error: err.message
+          })
+        );
+    })
+    .catch(err =>
+      res.status(500).json({
+        message: `Sorry. Something went wrong while trying to get meal by name: ${req.body.meal_type_name}`,
+        error: err.message
+      })
+    );
+});
+
 /**
  * @api {put} recipes/:recipe_id/ingredients/:ingredient_id Edit an Ingredient from a recipe
  * @apiName Edit Recipe Ingredient
