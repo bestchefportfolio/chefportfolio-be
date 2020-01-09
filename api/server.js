@@ -10,8 +10,8 @@ const recipesRouter = require("./routes/recipes/router.js");
 const recipeIngredientsRouter = require("./routes/recipe_ingredients/router.js");
 
 const server = express();
-server.use(helmet());
 server.use(cors());
+server.use(helmet());
 server.use(express.json());
 
 // routes
