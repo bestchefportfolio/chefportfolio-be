@@ -80,7 +80,7 @@ router.post("/register", validateUniqueUserDetail, (req, res) => {
 router.post(
   "/register/chef",
   validateUniqueUserDetail,
-  validateUniqueChefDetail,
+  // validateUniqueChefDetail,
   (req, res) => {
     const { password } = req.body.password;
     password = bcrypt.hashSync(password, 10);
