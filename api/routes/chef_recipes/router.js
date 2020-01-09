@@ -106,7 +106,7 @@ router.post(
  */
 
 router.get("/:chef_id/recipes", (req, res) => {
-  getByUserDetail(req.params.chef_id).then(chef => {
+  getChefById(req.params.chef_id).then(chef => {
     getChefRecipes(req.params.chef_id)
       .then(chefRecipes => {
         res.status(200).json({ chef, chefRecipes });

@@ -10,6 +10,7 @@ function generateToken({ id, username }) {
   const payload = {
     id: id,
     username: username,
+    chef_id: 1
   };
   const options = {
     expiresIn: "8h"

@@ -55,6 +55,7 @@ async function addChef(user, chef) {
     ...chef
   };
   const chefID = await db("chefs").insert(newChef);
+  return db('chefs').where(id)
 }
 
 function editUser(userID, changes) {
