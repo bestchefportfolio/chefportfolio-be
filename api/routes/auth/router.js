@@ -83,7 +83,7 @@ router.post(
   // validateUniqueChefDetail,
   (req, res) => {
     let password = req.body.password;
-    console.log('password: ', password)
+    console.log("password: ", password);
     password = bcrypt.hashSync(password, 10);
     let newUser = {
       username: req.body.username,
@@ -98,10 +98,9 @@ router.post(
       phone_number: req.body.phone_number,
       business_name: req.body.business_name
     };
+    console.log("newuser: ", newUser, "newchef", newChef);
     addChef(newUser, newChef)
-      .then(() =>
-        res.status(201).json({ message: "What's your favourite dish?" })
-      )
+      .then(chef => res.status(201).json({ chef }))
       .catch(err => res.status(500).json({ error: err.message }));
   }
 );

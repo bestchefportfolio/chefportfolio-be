@@ -26,7 +26,7 @@ function getBy(user) {
 }
 
 function getByUserDetail(detail) {
-  console.log(detail)
+  console.log(detail);
   return db("users").where(detail);
 }
 
@@ -49,13 +49,17 @@ function getByChefDetail(detail) {
 }
 
 async function addChef(user, chef) {
+  console.log(user, chef);
   const id = await db("users").insert(user);
+  console.log(id[0]);
   const newChef = {
     user_id: id[0],
     ...chef
   };
+  console.log(newChef);
   const chefID = await db("chefs").insert(newChef);
-  return db('chefs').where(id)
+  console.log("chefID", chefID[0]);
+  return chefID;
 }
 
 function editUser(userID, changes) {
