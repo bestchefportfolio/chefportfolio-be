@@ -22,13 +22,12 @@ module.exports = {
 
   testing: {
     client: "sqlite3",
-    useNullAsDefault: true,
     connection: {
       filename: "./database/test.db3"
     },
+    useNullAsDefault: true,
     migrations: {
       directory: "./database/migrations",
-      tableName: "knex_migrations"
     },
     seeds: {
       directory: "./database/seeds"
@@ -40,7 +39,6 @@ module.exports = {
     connection: process.env.DATABASE_URL,
     migrations: {
       directory: "./database/migrations",
-      tableName: "knex_migrations"
     },
     seeds: {
       directory: "./database/seeds"

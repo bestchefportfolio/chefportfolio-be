@@ -70,7 +70,7 @@ describe("POST /login", () => {
   it("gives a user a token", async () => {
     const res = await request(server)
       .post("/login")
-      .send({ username: "test2", password: "password1234" });
+      .send({ username: "test2", password: "password1234", is_chef: false });
 
     expect(res.status).toBe(200);
     expect(res.body.message).toBe("Logged in test2");
@@ -92,6 +92,14 @@ describe("POST /login", () => {
     expect(res.status).toBe(401);
     expect(res.body.message).toBe("invalid");
   });
+  //   it("gives a message of invalid if chef does not use correct password", async () => {
+  //     const res = await request(server)
+  //       .post("/login")
+  //       .send({ username: "misunderstoodchef86", password: "pass" });
+
+  //     expect(res.status).toBe(401);
+  //     expect(res.body.message).toBe("invalid");
+  //   });
   it("fails logging in user or chef without body", async () => {
     const res = await request(server).post("/login");
 
@@ -123,6 +131,33 @@ describe("PUT /user/:user_id/update", () => {
   });
 });
 
-describe("DELETE /user/:user_id/delete", () => {
-  it("", async () => {});
+// need help with this deleting test
+// describe("DELETE /user/:user_id/delete", () => {
+//   it("deletes user successfully", async done => {
+//     const res = await request(server).delete("/user/2/delete");
+
+//     auth({ username: "test2", password: "password1234" });
+//     expect(authToken).toBeCalled();
+//     expect(res.status).toBe(200);
+//     expect(res.body).toHaveProperty("success");
+//     expect(res.body).toHaveProperty("user");
+//     done();
+//   }, 30000);
+//   it("fails at deleting user", async done => {
+//     const res = await request(server).delete("/user/undefined/delete");
+
+//     auth({ username: "test2", password: "password1234" });
+//     expect(authToken).toBeCalled();
+//     expect(res.status).toBe(500);
+//     expect(res.body).toHaveProperty("error");
+//     done();
+//   }, 30000);
+// });
+
+describe("GET /allusernames", () => {
+  it("returns all usernames with 200 ok", async () => {
+    const res = await request(server).get("/allusernames");
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveProperty("users");
+  });
 });

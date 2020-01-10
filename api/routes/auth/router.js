@@ -84,7 +84,6 @@ router.post(
   // validateUniqueChefDetail,
   (req, res) => {
     let password = req.body.password;
-    console.log("password: ", password);
     password = bcrypt.hashSync(password, 10);
     let newUser = {
       username: req.body.username,
@@ -99,7 +98,6 @@ router.post(
       phone_number: req.body.phone_number,
       business_name: req.body.business_name
     };
-    console.log("newuser: ", newUser, "newchef", newChef);
     addChef(newUser, newChef)
       .then(chef => res.status(201).json({ chef }))
       .catch(err => res.status(500).json({ error: err.message }));
@@ -135,18 +133,14 @@ router.post(
 
 router.post("/login", (req, res) => {
   let { username, password } = req.body;
-  console.log("username: ", username, `\n password: `, password);
 
   getByUserDetail({ username })
     .first()
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
-        console.log("user: ", user)
         const token = generateToken(user);
         if (user.is_chef === 1) {
-          console.log('user.is_chef', user.is_chef)
           getByChefDetail({ user_id: user.id }).then(chef => {
-            console.log("chef: ", chef)
             const chef_id = chef[0].id;
             return res.status(200).json({
               message: `Logged in ${user.username} with chef_id: ${chef[0].id}`,
@@ -190,16 +184,11 @@ router.post("/login", (req, res) => {
  *     }
  */
 
-router.put(
-  "/user/:user_id/update",
-  validateUniqueUserDetail,
-  (req, res) => {
-    console.log(req.body);
-    editUser(req.params.user_id, req.body)
-      .then(updatedUser => res.status(200).json({ updatedUser }))
-      .catch(err => res.status(500).json({ error: err.message }));
-  }
-);
+router.put("/user/:user_id/update", validateUniqueUserDetail, (req, res) => {
+  editUser(req.params.user_id, req.body)
+    .then(updatedUser => res.status(200).json({ updatedUser }))
+    .catch(err => res.status(500).json({ error: err.message }));
+});
 
 /**
  * @api {delete} user/:user_id/update Delete User Info
@@ -222,9 +211,9 @@ router.delete(
   validateToken,
   validateUserID,
   (req, res) => {
-    deleteUser(req.params.user_id, req.body)
-      .then(() =>
-        res.status(200).json({ success: "successfully deleted user" })
+    deleteUser(req.params.user_id)
+      .then(user =>
+        res.status(200).json({ success: "successfully deleted user", user })
       )
       .catch(err => res.status(500).json({ error: err.message }, err));
   }
