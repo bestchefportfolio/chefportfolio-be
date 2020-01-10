@@ -135,7 +135,7 @@ router.post(
 
 router.post("/login", (req, res) => {
   let { username, password } = req.body;
-  // console.log("username: ", username, `\n password: `, password);
+  console.log("username: ", username, `\n password: `, password);
 
   getByUserDetail({ username })
     .first()
