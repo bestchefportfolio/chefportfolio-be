@@ -27,7 +27,7 @@ function editRecipe(id, changes) {
   return db("recipes")
     .where({ id })
     .update(changes, "id")
-    .then(() => getRecipeByID(id));
+    .then(() => getRecipeById(id));
 }
 
 function getRecipeById(id) {

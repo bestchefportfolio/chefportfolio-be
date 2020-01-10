@@ -46,7 +46,7 @@ const validateUniqueRecipeTitle = require("./middleware/validateUniqueRecipeTitl
  */
 router.post(
   "/:chef_id/recipes",
-  // validateToken,
+  validateToken,
   // validateChefId,
   // validateUniqueRecipeTitle,
   (req, res) => {
@@ -142,9 +142,14 @@ router.get("/:chef_id/recipes", (req, res) => {
 router.put("/:chef_id/recipes/:recipe_id", validateToken, (req, res) => {
   const { recipe_id } = req.params;
   const updates = req.body;
+  console.log("recipe_id: ", recipe_id);
+  console.log("updates: ", updates);
   editRecipe(recipe_id, updates)
     .then(changes => res.status(200).json(changes))
-    .catch(err => res.status(500).json({ error: err.message }));
+    .catch(err => {
+      console.log(err.message);
+      res.status(500).json({ error: err.message });
+    });
 });
 
 /**

@@ -129,7 +129,7 @@ describe("PUT /user/:user_id/update", () => {
 });
 
 describe("DELETE /user/:user_id/delete", () => {
-  it("deletes user successfully", async () => {
+  it("deletes user successfully 200 ok", async () => {
     const res = await request(server).delete("/user/2/delete");
 
     expect(authToken).toBeCalled();
@@ -137,7 +137,7 @@ describe("DELETE /user/:user_id/delete", () => {
     expect(res.body).toHaveProperty("success");
     expect(res.body).toHaveProperty("user");
   });
-  it("fails at deleting user", async () => {
+  it("fails at deleting user 409", async () => {
     const res = await request(server).delete("/user/undefined/delete");
 
     expect(authToken).toBeCalled();
