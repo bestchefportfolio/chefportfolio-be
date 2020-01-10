@@ -223,8 +223,8 @@ router.delete(
   validateUserID,
   (req, res) => {
     deleteUser(req.params.user_id, req.body)
-      .then(() =>
-        res.status(200).json({ success: "successfully deleted user" })
+      .then(recipes =>
+        res.status(200).json({ success: "successfully deleted user", recipes })
       )
       .catch(err => res.status(500).json({ error: err.message }, err));
   }

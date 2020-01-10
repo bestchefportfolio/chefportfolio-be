@@ -124,5 +124,12 @@ describe("PUT /user/:user_id/update", () => {
 });
 
 describe("DELETE /user/:user_id/delete", () => {
-  it("", async () => {});
+  beforeEach(prepTestDB);
+
+  it("deletes user successfully", async () => {
+    const res = await request(server).delete("/user/2/delete");
+    console.log(res)
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveProperty("success");
+  });
 });
