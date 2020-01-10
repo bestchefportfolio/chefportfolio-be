@@ -11,7 +11,7 @@
     "docs": "apidoc -i ./api/routes -e node_modules -o ./docs",
     "server": "nodemon index.js",
     "start": "node index.js",
-    "test": "cross-env NODE_ENV=testing jest --watch --verbose --runInBand"
+    "test": "cross-env DB_ENV=testing jest --watch --verbose --runInBand"
   },
   "jest": {
     "testEnvironment": "node"

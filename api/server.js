@@ -34,7 +34,7 @@ server.use("/recipes", recipesRouter, recipeIngredientsRouter);
 
 // test end point
 server.get("/", (req, res) =>
-  res.status(200).send("<h1>The server is up and running! <3 😊</h1>")
+  res.status(200).json({ api: "up", node_env: process.env.NODE_ENV })
 );
 
 module.exports = server;

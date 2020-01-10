@@ -12,17 +12,17 @@ jest.mock("../global-middleware/authtoken.js");
 describe("POST /:chef_id/recipes", () => {
   beforeEach(prepTestDB);
   it("successfully adds a recipe", async done => {
-    const testUser = {
-      username: "misunderstoodchef86",
-      password: "password1234"
-    };
-    const loginRes = await request(server)
-      .post("/login")
-      .send(testUser);
+    // const testUser = {
+    //   username: "misunderstoodchef86",
+    //   password: "password1234"
+    // };
+    // const loginRes = await request(server)
+    //   .post("/login")
+    //   .send(testUser);
 
     const res = request(server)
-      .post(`/chef/${loginRes.body.chef_id}/recipes`)
-      .set("authorization", loginRes.body.token)
+      .post(`/chef/1/recipes`)
+    //   .set("authorization", loginRes.body.token)
       .send({
         title: "testing suite",
         servings: 25,
