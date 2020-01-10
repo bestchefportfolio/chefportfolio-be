@@ -5,8 +5,8 @@ const prepTestDB = require("../../helpers/prepTestDB.js");
 const authToken = require("../global-middleware/authtoken.js");
 jest.mock("../global-middleware/authtoken.js");
 
+beforeEach(prepTestDB);
 describe("POST /register", () => {
-  beforeEach(prepTestDB);
   it("creates a new user", async () => {
     const res = await request(server)
       .post("/register")
@@ -92,14 +92,14 @@ describe("POST /login", () => {
     expect(res.status).toBe(401);
     expect(res.body.message).toBe("invalid");
   });
-  //   it("gives a message of invalid if chef does not use correct password", async () => {
-  //     const res = await request(server)
-  //       .post("/login")
-  //       .send({ username: "misunderstoodchef86", password: "pass" });
+    it("gives a message of invalid if chef does not use correct password", async () => {
+      const res = await request(server)
+        .post("/login")
+        .send({ username: "misunderstoodchef86", password: "pass" });
 
-  //     expect(res.status).toBe(401);
-  //     expect(res.body.message).toBe("invalid");
-  //   });
+      expect(res.status).toBe(401);
+      expect(res.body.message).toBe("invalid");
+    });
   it("fails logging in user or chef without body", async () => {
     const res = await request(server).post("/login");
 
@@ -131,9 +131,8 @@ describe("PUT /user/:user_id/update", () => {
   });
 });
 
-// need help with this deleting test
 // describe("DELETE /user/:user_id/delete", () => {
-//   it("deletes user successfully", async done => {
+//   it("deletes user successfully", async () => {
 //     const res = await request(server).delete("/user/2/delete");
 
 //     auth({ username: "test2", password: "password1234" });
@@ -141,17 +140,15 @@ describe("PUT /user/:user_id/update", () => {
 //     expect(res.status).toBe(200);
 //     expect(res.body).toHaveProperty("success");
 //     expect(res.body).toHaveProperty("user");
-//     done();
-//   }, 30000);
-//   it("fails at deleting user", async done => {
+//   });
+//   it("fails at deleting user", async () => {
 //     const res = await request(server).delete("/user/undefined/delete");
 
 //     auth({ username: "test2", password: "password1234" });
 //     expect(authToken).toBeCalled();
 //     expect(res.status).toBe(500);
 //     expect(res.body).toHaveProperty("error");
-//     done();
-//   }, 30000);
+//   });
 // });
 
 describe("GET /allusernames", () => {
