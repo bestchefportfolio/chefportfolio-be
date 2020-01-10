@@ -141,12 +141,12 @@ router.post("/login", (req, res) => {
     .first()
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
-        console.log("user: ", user)
+        console.log("user: ", user);
         const token = generateToken(user);
         if (user.is_chef === 1) {
-          console.log('user.is_chef', user.is_chef)
+          console.log("user.is_chef", user.is_chef);
           getByChefDetail({ user_id: user.id }).then(chef => {
-            console.log("chef: ", chef)
+            console.log("chef: ", chef);
             const chef_id = chef[0].id;
             return res.status(200).json({
               message: `Logged in ${user.username} with chef_id: ${chef[0].id}`,
@@ -190,16 +190,12 @@ router.post("/login", (req, res) => {
  *     }
  */
 
-router.put(
-  "/user/:user_id/update",
-  validateUniqueUserDetail,
-  (req, res) => {
-    console.log(req.body);
-    editUser(req.params.user_id, req.body)
-      .then(updatedUser => res.status(200).json({ updatedUser }))
-      .catch(err => res.status(500).json({ error: err.message }));
-  }
-);
+router.put("/user/:user_id/update", validateUniqueUserDetail, (req, res) => {
+  console.log(req.body);
+  editUser(req.params.user_id, req.body)
+    .then(updatedUser => res.status(200).json({ updatedUser }))
+    .catch(err => res.status(500).json({ error: err.message }));
+});
 
 /**
  * @api {delete} user/:user_id/update Delete User Info
@@ -222,9 +218,9 @@ router.delete(
   validateToken,
   validateUserID,
   (req, res) => {
-    deleteUser(req.params.user_id, req.body)
-      .then(recipes =>
-        res.status(200).json({ success: "successfully deleted user", recipes })
+    deleteUser(req.params.user_id)
+      .then(user =>
+        res.status(200).json({ success: "successfully deleted user", user })
       )
       .catch(err => res.status(500).json({ error: err.message }, err));
   }
