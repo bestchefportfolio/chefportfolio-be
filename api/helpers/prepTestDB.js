@@ -1,4 +1,4 @@
-const db = require('../api/db-config');
+const db = require('../../database/dbconfig.js');
 
 module.exports = () => {
   return db.migrate.rollback()

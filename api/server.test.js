@@ -1,5 +1,4 @@
 const request = require("supertest");
-const db = require("../database/dbconfig.js");
 const server = require("./server.js");
 
 describe("GET /", () => {
