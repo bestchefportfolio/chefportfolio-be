@@ -47,7 +47,7 @@ describe("GET /chef/:chef_id/recipes", () => {
 
 describe("/PUT /chef/:chef_id/recipes/:recipe_id", () => {
   it("successfully updates a chefs recipe, 200 ok", async () => {
-    const res = await await request(server)
+    const res = await request(server)
       .put("/chef/1/recipes/1")
       .send({
         title: "Testing Put Request",
@@ -59,3 +59,13 @@ describe("/PUT /chef/:chef_id/recipes/:recipe_id", () => {
     expect(authToken).toBeCalled();
   });
 });
+
+describe("/DELETE /:chef_id/recipes/:recipe_id", () => {
+  it('successfully deletes a chefs recipes, 200 ok',  async () => {
+    const res = await request(server)
+    .delete("/chef/1/recipes/1")
+
+    expect(res.status).toBe(200)
+    expect(authToken).toBeCalled()
+  })
+})
