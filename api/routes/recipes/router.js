@@ -2,7 +2,7 @@ const router = require("express").Router();
 
 const { getRecipeById } = require("../chef_recipes/model.js");
 
-const { getAllRecipes } = require("./model.js");
+const { getAllRecipes, getAllRecipeData } = require("./model.js");
 
 /**
  * @api {get} recipes/:recipe_id Search for recipe
@@ -27,6 +27,7 @@ router.get("/:recipe_id", (req, res) => {
     .then(recipe => res.status(200).json({ recipe }))
     .catch(err => res.status(500).json({ error: err }));
 });
+
 
 /**
  * @api {get} recipes/ List All Recipes
@@ -67,6 +68,5 @@ router.get("/", (req, res) => {
     .then(all_recipes => res.status(200).json({ all_recipes }))
     .catch(err => res.status(500).json({ error: err }));
 });
-
 
 module.exports = router;

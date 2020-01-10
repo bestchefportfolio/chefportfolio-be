@@ -163,7 +163,6 @@ router.put("/:chef_id/recipes/:recipe_id", validateToken, (req, res) => {
 router.delete(
   "/:chef_id/recipes/:recipe_id",
   validateToken,
-  validateChefId,
   (req, res) => {
     const { recipe_id } = req.params;
     deleteRecipe(recipe_id)

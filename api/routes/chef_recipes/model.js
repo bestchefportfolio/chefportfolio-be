@@ -30,8 +30,16 @@ function editRecipe(id, changes) {
     .then(() => getRecipeByID(id));
 }
 
+function getRecipeById(id) {
+  console.log("id: ", id);
+  return db("recipes")
+    .where({ id })
+    .first();
+}
+
 function deleteRecipe(id) {
-  return getRecipeByID(id).then(res => {
+  console.log("id in delete: ", id);
+  return getRecipeById(id).then(res => {
     return db("recipes")
       .where({ id })
       .del()
@@ -40,25 +48,25 @@ function deleteRecipe(id) {
   });
 }
 
-function getRecipeById(id) {
-  return db("recipes")
-    .where({ id })
-    .first();
-}
-
 function getChefById(chefID) {
-    return db('chefs as c')
-    .join('users as u', 'u.id', 'c.user_id')
-    .select('u.name as chef_name', 'c.business_name')
-    .where('c.id', chefID)
-    .first()
+  return db("chefs as c")
+    .join("users as u", "u.id", "c.user_id")
+    .select("u.name as chef_name", "c.business_name")
+    .where("c.id", chefID)
+    .first();
 }
 
 async function getChefRecipes(chefID) {
   return db("chef_recipes as cr")
     .join("chefs as c", "c.id", "cr.chef_id")
     .join("recipes as r", "r.id", "cr.recipe_id")
-    .select("cr.recipe_id", "r.title", "r.servings", "r.instructions", "r.images")
+    .select(
+      "cr.recipe_id",
+      "r.title",
+      "r.servings",
+      "r.instructions",
+      "r.images"
+    )
     .where("cr.chef_id", chefID);
 }
 
@@ -81,6 +89,6 @@ async function getChefRecipesDetails(chefID) {
 }
 
 function getByRecipeDetail(detail) {
-  console.log("detail: ", detail)
-  return db('recipes').where(detail)
+  console.log("detail: ", detail);
+  return db("recipes").where(detail);
 }

@@ -3,8 +3,9 @@ const db = require("../../../database/dbconfig.js");
 module.exports = {
   getAllRecipes,
   getById,
-  getRecipeMealTypes
+  getRecipeMealTypes,
 };
+
 
 function getAllRecipes() {
   return db("recipes");
