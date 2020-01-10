@@ -2,8 +2,6 @@ const request = require("supertest");
 const server = require("../../server.js");
 const prepTestDB = require("../../helpers/prepTestDB.js");
 
-const db = require("../../../database/dbconfig.js");
-
 const authToken = require("../global-middleware/authtoken.js");
 jest.mock("../global-middleware/authtoken.js");
 
@@ -155,3 +153,11 @@ describe("PUT /user/:user_id/update", () => {
 //     done();
 //   }, 30000);
 // });
+
+describe("GET /allusernames", () => {
+  it("returns all usernames with 200 ok", async () => {
+    const res = await request(server).get("/allusernames");
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveProperty("users");
+  });
+});

@@ -47,16 +47,12 @@ function getByChefDetail(detail) {
 }
 
 async function addChef(user, chef) {
-  console.log(user, chef);
   const id = await db("users").insert(user);
-  console.log(id[0]);
   const newChef = {
     user_id: id[0],
     ...chef
   };
-  console.log(newChef);
   const chefID = await db("chefs").insert(newChef);
-  console.log("chefID", chefID[0]);
   return chefID;
 }
 
@@ -79,19 +75,16 @@ async function editChef(chefID, changes) {
     phone_number: changes.phone_number,
     business_name: changes.business_name
   };
-  console.log("chefChanges: ", chefChanges);
   const userChanges = {
     username: changes.username,
     password: changes.password,
     email: changes.email,
     name: changes.name
   };
-  console.log("userChanges: ", userChanges);
   await db("chefs")
     .where("chefs.id", chefID)
     .update(chefChanges, "id");
   const chefObj = await getByChefID(chefID);
-  console.log("chefObj: ", chefObj, `\n`);
   return editUser(chefObj.user_id, userChanges);
 }
 
@@ -99,7 +92,6 @@ async function deleteChef() {
   const chefObj = await db("chef")
     .where(chefID)
     .first();
-  console.log("chefObj: ", chefObj, `\n`);
   return deleteUser(chefObj.user_id);
 }
 
