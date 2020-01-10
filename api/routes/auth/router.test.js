@@ -2,6 +2,9 @@ const request = require("supertest");
 const server = require("../../server.js");
 const prepTestDB = require("../../helpers/prepTestDB.js");
 
+const authToken = require("../global-middleware/authtoken.js");
+jest.mock("../global-middleware/authtoken.js");
+
 describe("POST /register", () => {
   beforeEach(prepTestDB);
   it("creates a new user", async () => {
@@ -18,22 +21,9 @@ describe("POST /register", () => {
     expect(res.body.message).toBe("Thanks for joining the club!");
   });
   it("fails user creation", async () => {
-    const res = await request(server)
-      .post("/register")
-      .send(null);
+    const res = await request(server).post("/register");
 
     expect(res.status).toBe(500);
-  });
-  it("should return a JSON object from the register route", async () => {
-    const res = await request(server)
-      .post("/register")
-      .send({
-        username: "bestchef",
-        password: "bestchef1",
-        email: "bestchef@gmail.com",
-        name: "Best Chef"
-      });
-    expect(res.type).toEqual("application/json");
   });
 });
 
@@ -62,4 +52,77 @@ describe("POST /register/chef", () => {
 
     expect(res.status).toBe(500);
   });
+});
+
+describe("POST /login", () => {
+  beforeEach(prepTestDB);
+  it("gives a chef a token", async () => {
+    const res = await request(server)
+      .post("/login")
+      .send({ username: "misunderstoodchef86", password: "password1234" });
+    expect(res.status).toBe(200);
+    expect(res.body.message).toBe(
+      "Logged in misunderstoodchef86 with chef_id: 1"
+    );
+    expect(res.body.chef_id).toBe(1);
+    expect(res.body).toHaveProperty("token");
+  });
+  it("gives a user a token", async () => {
+    const res = await request(server)
+      .post("/login")
+      .send({ username: "test2", password: "password1234" });
+
+    expect(res.status).toBe(200);
+    expect(res.body.message).toBe("Logged in test2");
+    expect(res.body).toHaveProperty("token");
+  });
+  it("gives a message of invalid if user does not use correct password", async () => {
+    const res = await request(server)
+      .post("/login")
+      .send({ username: "test2", password: "pass" });
+
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe("invalid");
+  });
+  it("gives a message of invalid if chef does not use correct password", async () => {
+    const res = await request(server)
+      .post("/login")
+      .send({ username: "misunderstoodchef86", password: "pass" });
+
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe("invalid");
+  });
+  it("fails logging in user or chef without body", async () => {
+    const res = await request(server).post("/login");
+
+    expect(res.status).toBe(500);
+    expect(res.body).toHaveProperty("error");
+  });
+});
+
+describe("PUT /user/:user_id/update", () => {
+  beforeEach(prepTestDB);
+
+  it("updates user successfully", async () => {
+    const res = await request(server)
+      .put("/user/2/update")
+      .send({
+        username: "B",
+        password: "pass",
+        email: "b@gmail.com",
+        name: "B"
+      });
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveProperty("updatedUser");
+  });
+
+  it("fails with no body", async () => {
+    const res = await request(server).put("/user/2/update");
+
+    expect(res.status).toBe(500);
+  });
+});
+
+describe("DELETE /user/:user_id/delete", () => {
+  it("", async () => {});
 });

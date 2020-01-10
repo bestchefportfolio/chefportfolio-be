@@ -140,13 +140,10 @@ router.post("/login", (req, res) => {
   getByUserDetail({ username })
     .first()
     .then(user => {
-      console.log("user: ", user);
       if (user && bcrypt.compareSync(password, user.password)) {
-        console.log("user in if: ", user);
         const token = generateToken(user);
         if (user.is_chef === 1) {
           getByChefDetail({ user_id: user.id }).then(chef => {
-            console.log("chef is logged in: ", chef);
             const chef_id = chef[0].id;
             return res.status(200).json({
               message: `Logged in ${user.username} with chef_id: ${chef[0].id}`,
@@ -192,9 +189,9 @@ router.post("/login", (req, res) => {
 
 router.put(
   "/user/:user_id/update",
-  validateToken,
   validateUniqueUserDetail,
   (req, res) => {
+    console.log(req.body);
     editUser(req.params.user_id, req.body)
       .then(updatedUser => res.status(200).json({ updatedUser }))
       .catch(err => res.status(500).json({ error: err.message }));
