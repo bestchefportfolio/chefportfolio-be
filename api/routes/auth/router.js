@@ -141,9 +141,12 @@ router.post("/login", (req, res) => {
     .first()
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
+        console.log("user: ", user)
         const token = generateToken(user);
         if (user.is_chef === 1) {
+          console.log('user.is_chef', user.is_chef)
           getByChefDetail({ user_id: user.id }).then(chef => {
+            console.log("chef: ", chef)
             const chef_id = chef[0].id;
             return res.status(200).json({
               message: `Logged in ${user.username} with chef_id: ${chef[0].id}`,
